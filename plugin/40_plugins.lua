@@ -122,7 +122,7 @@ later(function() add('rafamadriz/friendly-snippets') end)
 -- Git Integration ============================================================
 
 later(function()
-  add('aspeddro/gitui.nvim') 
+  add('aspeddro/gitui.nvim')
   require("gitui").setup()
 end)
 
