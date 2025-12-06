@@ -119,3 +119,10 @@ end)
 -- See `:h MiniSnippets.gen_loader.from_lang()`.
 later(function() add('rafamadriz/friendly-snippets') end)
 
+-- Git Integration ============================================================
+
+later(function()
+  add('aspeddro/gitui.nvim') 
+  require("gitui").setup()
+end)
+

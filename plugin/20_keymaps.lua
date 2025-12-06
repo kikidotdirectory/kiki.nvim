@@ -17,6 +17,7 @@ nmap('[p', '<Cmd>exe "put! " . v:register<CR>', 'Paste Above')
 nmap(']p', '<Cmd>exe "put "  . v:register<CR>', 'Paste Below')
 
 nmap('n', '<Esc>', '<cmd>nohlsearch<CR>')
+nmap('<Esc>', '<cmd>nohlsearch<CR>')
 -- Many general mappings are created by 'mini.basics'. See 'plugin/30_mini.lua'
 
 -- stylua: ignore start
@@ -108,6 +109,7 @@ end
 
 nmap_leader('ed', '<Cmd>lua MiniFiles.open()<CR>',          'Directory')
 nmap_leader('ef', explore_at_file,                          'File directory')
+nmap_leader('eg', '<Cmd>Gitui<CR>',                         'Gitui')
 nmap_leader('ei', '<Cmd>edit $MYVIMRC<CR>',                 'init.lua')
 nmap_leader('ek', edit_plugin_file('20_keymaps.lua'),       'Keymaps config')
 nmap_leader('em', edit_plugin_file('30_mini.lua'),          'MINI config')
