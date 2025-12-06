@@ -16,8 +16,8 @@ end
 nmap('[p', '<Cmd>exe "put! " . v:register<CR>', 'Paste Above')
 nmap(']p', '<Cmd>exe "put "  . v:register<CR>', 'Paste Below')
 
-nmap('n', '<Esc>', '<cmd>nohlsearch<CR>')
 nmap('<Esc>', '<cmd>nohlsearch<CR>')
+
 -- Many general mappings are created by 'mini.basics'. See 'plugin/30_mini.lua'
 
 -- stylua: ignore start
