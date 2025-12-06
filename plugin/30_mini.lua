@@ -36,12 +36,6 @@ local now_if_args = _G.Config.now_if_args
 -- - 'plugin/40_plugins.lua' honorable mentions - other good color schemes
 now(function() vim.cmd('colorscheme miniwinter') end)
 
--- You can try these other 'mini.hues'-based color schemes (uncomment with `gcc`):
--- now(function() vim.cmd('colorscheme minispring') end)
--- now(function() vim.cmd('colorscheme minisummer') end)
--- now(function() vim.cmd('colorscheme miniautumn') end)
--- now(function() vim.cmd('colorscheme randomhue') end)
-
 -- Common configuration presets. Example usage:
 -- - `<C-s>` in Insert mode - save and go to Normal mode
 -- - `go` / `gO` - insert empty line before/after in Normal mode
