@@ -428,22 +428,22 @@ later(function() require('mini.diff').setup() end)
 -- - `:h MiniFiles-navigation` - more details about how to navigate
 -- - `:h MiniFiles-manipulation` - more details about how to manipulate
 -- - `:h MiniFiles-examples` - examples of common setups
-later(function()
-  -- Enable directory/file preview
-  require('mini.files').setup({ windows = { preview = true } })
-
-  -- Add common bookmarks for every explorer. Example usage inside explorer:
-  -- - `'c` to navigate into your config directory
-  -- - `g?` to see available bookmarks
-  local add_marks = function()
-    MiniFiles.set_bookmark('c', vim.fn.stdpath('config'), { desc = 'Config' })
-    local minideps_plugins = vim.fn.stdpath('data') .. '/site/pack/deps/opt'
-    MiniFiles.set_bookmark('p', minideps_plugins, { desc = 'Plugins' })
-    MiniFiles.set_bookmark('w', vim.fn.getcwd, { desc = 'Working directory' })
-  end
-  _G.Config.new_autocmd('User', 'MiniFilesExplorerOpen', add_marks, 'Add bookmarks')
-end)
-
+-- later(function()
+--   -- Enable directory/file preview
+--   require('mini.files').setup({ windows = { preview = true } })
+--
+--   -- Add common bookmarks for every explorer. Example usage inside explorer:
+--   -- - `'c` to navigate into your config directory
+--   -- - `g?` to see available bookmarks
+--   local add_marks = function()
+--     MiniFiles.set_bookmark('c', vim.fn.stdpath('config'), { desc = 'Config' })
+--     local minideps_plugins = vim.fn.stdpath('data') .. '/site/pack/deps/opt'
+--     MiniFiles.set_bookmark('p', minideps_plugins, { desc = 'Plugins' })
+--     MiniFiles.set_bookmark('w', vim.fn.getcwd, { desc = 'Working directory' })
+--   end
+--   _G.Config.new_autocmd('User', 'MiniFilesExplorerOpen', add_marks, 'Add bookmarks')
+-- end)
+--
 -- Git integration for more straightforward Git actions based on Neovim's state.
 -- It is not meant as a fully featured Git client, only to provide helpers that
 -- integrate better with Neovim. Example usage:

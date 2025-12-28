@@ -131,3 +131,26 @@ end)
 add({ source = "catppuccin/nvim", name = "catppuccin" })
 vim.cmd.colorscheme "catppuccin"
 
+add({
+  source = "mikavilpas/yazi.nvim",
+  depends = {
+    "nvim-lua/plenary.nvim",
+  },
+})
+
+-- Configure immediately to prevent netrw from loading
+now_if_args(function()
+  -- Mark netrw as loaded so it's not loaded at all
+  -- More details: https://github.com/mikavilpas/yazi.nvim/issues/802
+  vim.g.loaded_netrwPlugin = 1
+end)
+
+-- Setup and configure keymaps later
+later(function()
+  require("yazi").setup({
+    open_for_directories = true,
+    keymaps = {
+      show_help = "<f1>",
+    },
+  })
+end)
