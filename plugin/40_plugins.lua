@@ -131,6 +131,8 @@ end)
 add({ source = "catppuccin/nvim", name = "catppuccin" })
 vim.cmd.colorscheme "catppuccin"
 
+-- File manager ===============================================================
+
 add({
   source = "mikavilpas/yazi.nvim",
   depends = {
