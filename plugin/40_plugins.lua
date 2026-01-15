@@ -148,3 +148,20 @@ later(function()
     },
   })
 end)
+
+-- Marks ======================================================================
+
+add({
+  source = "otavioschwanck/arrow.nvim",
+  depends = {
+    "nvim-mini/mini.icons",
+  },
+})
+
+later(function()
+  require('arrow').setup({
+    show_icons = true,
+    leader_key = ";",
+    buffer_leader_key = 'm',
+  })
+end)
