@@ -209,7 +209,11 @@ later(function() require('mini.align').setup() end)
 -- It is not enabled by default because its effects are a matter of taste.
 -- Also scroll and resize have some unwanted side effects (see `:h mini.animate`).
 -- Uncomment next line (use `gcc`) to enable.
--- later(function() require('mini.animate').setup() end)
+later(function() require('mini.animate').setup({
+  cursor = {
+    enable = false,
+  },
+}) end)
 
 -- Go forward/backward with square brackets. Implements consistent sets of mappings
 -- for selected targets (like buffers, diagnostic, quickfix list entries, etc.).
