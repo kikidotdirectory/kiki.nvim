@@ -75,21 +75,13 @@ end)
 
 -- Language servers ===========================================================
 
-later(function()
-  add('mason-org/mason.nvim')
-  require('mason').setup()
-end)
-
 now_if_args(function()
   add('neovim/nvim-lspconfig')
 
   -- Use `:h vim.lsp.enable()` to automatically enable language server based on
   -- the rules provided by 'nvim-lspconfig'.
   -- Use `:h vim.lsp.config()` or 'after/lsp/' directory to configure servers.
-  -- Uncomment and tweak the following `vim.lsp.enable()` call to enable servers.
-  -- vim.lsp.enable({
-  --   -- For example, if `lua-language-server` is installed, use `'lua_ls'` entry
-  -- })
+  vim.lsp.enable({ 'vtsls' })
 end)
 
 -- Formatting =================================================================
