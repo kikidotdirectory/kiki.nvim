@@ -436,7 +436,15 @@ later(function() require('mini.diff').setup() end)
 -- - `:h MiniFiles-examples` - examples of common setups
 later(function()
   -- Enable directory/file preview
-  require('mini.files').setup({ windows = { preview = true } })
+  require('mini.files').setup({
+    mappings = {
+      go_in = '<Right>',
+      go_in_plus = '<S-Right>',
+      go_out = '<Left>',
+      go_out_plus = '<S-Left>',
+    },
+    windows = { preview = true }
+  })
 
   -- Add common bookmarks for every explorer. Example usage inside explorer:
   -- - `'c` to navigate into your config directory
