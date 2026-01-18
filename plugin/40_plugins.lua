@@ -155,23 +155,6 @@ require("flexoki").setup({
 })
 vim.cmd("colorscheme flexoki")
 
--- Marks ======================================================================
-
-later(function()
-  add({
-    source = "otavioschwanck/arrow.nvim",
-    depends = {
-      "nvim-mini/mini.icons",
-    },
-  })
-
-  require('arrow').setup({
-    show_icons = true,
-    leader_key = ";",
-    buffer_leader_key = 'm',
-  })
-end)
-
 -- Box drawing ================================================================
 
 later(function()
