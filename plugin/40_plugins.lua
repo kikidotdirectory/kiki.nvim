@@ -168,3 +168,13 @@ end)
 later(function()
   add({source = 'jbyuki/venn.nvim'})
 end)
+
+-- Terminal ===================================================================
+
+later(function()
+  add({ source = 'akinsho/toggleterm.nvim'})
+  require("toggleterm").setup({
+    open_mapping = [[<c-\>]],
+    terminal_mappings = true,
+  })
+end)
