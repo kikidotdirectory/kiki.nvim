@@ -90,7 +90,7 @@ now_if_args(function()
   -- Use `:h vim.lsp.config()` or 'after/lsp/' directory to configure servers.
   vim.lsp.enable({ 'vtsls',
                    'astro',
-                   'cssls', 'css_variables',
+                   'cssls', 
                    'superhtml', 'emmet_language_server' })
 end)
 
