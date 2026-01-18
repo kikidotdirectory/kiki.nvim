@@ -88,10 +88,16 @@ now_if_args(function()
   -- Use `:h vim.lsp.enable()` to automatically enable language server based on
   -- the rules provided by 'nvim-lspconfig'.
   -- Use `:h vim.lsp.config()` or 'after/lsp/' directory to configure servers.
-  vim.lsp.enable({ 'vtsls',
-                   'astro',
-                   'cssls', 
-                   'superhtml', 'emmet_language_server' })
+  vim.lsp.enable({
+    -- ts/js
+    'vtsls',
+    -- css
+    'cssls',
+    'css_variables',
+    -- html
+    'superhtml',
+    'emmet_language_server'
+  })
 end)
 
 -- Formatting =================================================================
