@@ -128,26 +128,24 @@ later(function()
   require("gitui").setup()
 end)
 
--- Color schemes ==============================================================
+-- Appearance =================================================================
 
-add({ source = "catppuccin/nvim", name = "catppuccin" })
-vim.cmd.colorscheme "catppuccin"
+add({ source = "eliseshaffer/darklight.nvim" })
+require('darklight').setup()
 
--- File manager ===============================================================
-
-add({
-  source = "mikavilpas/yazi.nvim",
-  depends = {
-    "nvim-lua/plenary.nvim",
+add({ source = "nuvic/flexoki-nvim", name = "flexoki" })
+require("flexoki").setup({
+  highlight_groups = {
+    MiniStarterHeader = { fg = "cyan_two" },
+    MiniStarterSection = { fg = "base" },
+    MiniStarterItem = { fg = "text"},
+    MiniStarterItemPrefix = { fg = "cyan_one" },
+    MiniStatuslineModeNormal = { bg = "yellow_one"},
+    ColorColumn = { bg = "highlight_med" },
   },
 })
+vim.cmd("colorscheme flexoki")
 
--- Configure immediately to prevent netrw from loading
-now_if_args(function()
-  -- Mark netrw as loaded so it's not loaded at all
-  -- More details: https://github.com/mikavilpas/yazi.nvim/issues/802
-  vim.g.loaded_netrwPlugin = 1
-end)
 
 later(function()
     },
