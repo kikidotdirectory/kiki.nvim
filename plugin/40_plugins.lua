@@ -162,3 +162,9 @@ later(function()
     buffer_leader_key = 'm',
   })
 end)
+
+-- Box drawing ================================================================
+
+later(function()
+  add({source = 'jbyuki/venn.nvim'})
+end)
