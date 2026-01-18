@@ -142,12 +142,7 @@ now_if_args(function()
   vim.g.loaded_netrwPlugin = 1
 end)
 
--- Setup and configure keymaps later
 later(function()
-  require("yazi").setup({
-    open_for_directories = true,
-    keymaps = {
-      show_help = "<f1>",
     },
   })
 end)

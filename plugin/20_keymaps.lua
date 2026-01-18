@@ -108,8 +108,7 @@ local explore_quickfix = function()
 end
 
 nmap_leader('ed', '<Cmd>lua MiniFiles.open()<CR>',          'Directory')
-nmap_leader('eF', '<cmd>Yazi cwd<cr>',                      'File directory')
-nmap_leader('ef', '<cmd>Yazi<cr>',                          'File directory (here)')
+nmap_leader('ef', explore_at_file,                          'File directory')
 nmap_leader('eg', '<Cmd>Gitui<CR>',                         'Gitui')
 nmap_leader('ei', '<Cmd>edit $MYVIMRC<CR>',                 'init.lua')
 nmap_leader('ek', edit_plugin_file('20_keymaps.lua'),       'Keymaps config')
