@@ -1,3 +1,3 @@
 return {
-  filetypes = { 'html', 'njk' },
+  filetypes = { 'html', 'html.jinja' },
 }
