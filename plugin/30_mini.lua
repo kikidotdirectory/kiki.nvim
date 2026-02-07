@@ -434,7 +434,7 @@ later(function() require('mini.diff').setup() end)
 -- - `:h MiniFiles-navigation` - more details about how to navigate
 -- - `:h MiniFiles-manipulation` - more details about how to manipulate
 -- - `:h MiniFiles-examples` - examples of common setups
-later(function()
+now_if_args(function()
   -- Enable directory/file preview
   require('mini.files').setup({
     mappings = {
@@ -443,7 +443,10 @@ later(function()
       go_out = '<Left>',
       go_out_plus = '<S-Left>',
     },
-    windows = { preview = true }
+    windows = { preview = true },
+    options = {
+      use_as_default_explorer = true,
+    },
   })
 
   -- Add common bookmarks for every explorer. Example usage inside explorer:
