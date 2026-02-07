@@ -53,9 +53,9 @@ now_if_args(function()
     'markdown-inline',
     'javascript',
     'typescript',
-    'astro',
     'html',
     'css',
+    'vento',
 
     -- Add here more languages with which you want to use tree-sitter
     -- To see available languages:
@@ -89,6 +89,8 @@ now_if_args(function()
   -- the rules provided by 'nvim-lspconfig'.
   -- Use `:h vim.lsp.config()` or 'after/lsp/' directory to configure servers.
   vim.lsp.enable({
+    --lua
+    'lua_ls',
     -- ts/js
     'vtsls',
     -- css
@@ -96,8 +98,15 @@ now_if_args(function()
     'css_variables',
     -- html
     'superhtml',
-    'emmet_language_server'
+    'emmet_language_server',
+    'jinja_lsp',
   })
+
+  vim.filetype.add {
+    extension = {
+      njk = 'html.jinja',
+    },
+  }
 end)
 
 -- Formatting =================================================================
@@ -142,29 +151,29 @@ end)
 add({ source = "eliseshaffer/darklight.nvim" })
 require('darklight').setup()
 
-add({ source = "nuvic/flexoki-nvim", name = "flexoki" })
-require("flexoki").setup({
-  highlight_groups = {
-    MiniStarterHeader = { fg = "cyan_two" },
-    MiniStarterSection = { fg = "base" },
-    MiniStarterItem = { fg = "text"},
-    MiniStarterItemPrefix = { fg = "cyan_one" },
-    MiniStatuslineModeNormal = { bg = "yellow_one"},
-    ColorColumn = { bg = "highlight_med" },
-  },
-})
-vim.cmd("colorscheme flexoki")
+add({ source = "vague-theme/vague.nvim" })
+-- require("koda").setup({
+--   highlight_groups = {
+--     MiniStarterHeader = { fg = "cyan_two" },
+--     MiniStarterSection = { fg = "base" },
+--     MiniStarterItem = { fg = "text"},
+--     MiniStarterItemPrefix = { fg = "cyan_one" },
+--     MiniStatuslineModeNormal = { bg = "yellow_one"},
+--     ColorColumn = { bg = "highlight_med" },
+--   },
+-- })
+vim.cmd("colorscheme vague")
 
 -- Box drawing ================================================================
 
 later(function()
-  add({source = 'jbyuki/venn.nvim'})
+  add({ source = 'jbyuki/venn.nvim' })
 end)
 
 -- Terminal ===================================================================
 
 later(function()
-  add({ source = 'akinsho/toggleterm.nvim'})
+  add({ source = 'akinsho/toggleterm.nvim' })
   require("toggleterm").setup({
     open_mapping = [[<c-\>]],
     terminal_mappings = true,
