@@ -142,16 +142,28 @@ later(function() add('rafamadriz/friendly-snippets') end)
 -- Git Integration ============================================================
 
 later(function()
-  add('aspeddro/gitui.nvim')
-  require("gitui").setup()
+	add('aspeddro/gitui.nvim')
+	require("gitui").setup()
 end)
 
 -- Appearance =================================================================
 
-add({ source = "eliseshaffer/darklight.nvim" })
-require('darklight').setup()
+add({ source = "f-person/auto-dark-mode.nvim" })
+require("auto-dark-mode").setup({
+	set_dark_mode = function()
+		vim.api.nvim_set_option_value("background", "dark", {})
+		vim.cmd("colorscheme kanagawa")
+	end,
+	set_light_mode = function()
+		vim.api.nvim_set_option_value("background", "light", {})
+		vim.cmd("colorscheme flexoki")
+	end,
+	update_interval = 3000,
+	fallback = "dark"
+})
 
-add({ source = "vague-theme/vague.nvim" })
+add({ source = "rebelot/kanagawa.nvim" })
+add({ source = "nuvic/flexoki-nvim" })
 -- require("koda").setup({
 --   highlight_groups = {
 --     MiniStarterHeader = { fg = "cyan_two" },
