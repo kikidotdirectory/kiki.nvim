@@ -31,82 +31,82 @@ local now_if_args = _G.Config.now_if_args
 --
 -- Add these plugins now if file (and not 'mini.starter') is shown after startup.
 now_if_args(function()
-  add({
-    source = 'nvim-treesitter/nvim-treesitter',
-    -- Use `main` branch since `master` branch is frozen, yet still default
-    checkout = 'main',
-    -- Update tree-sitter parser after plugin is updated
-    hooks = { post_checkout = function() vim.cmd('TSUpdate') end },
-  })
-  add({
-    source = 'nvim-treesitter/nvim-treesitter-textobjects',
-    -- Same logic as for 'nvim-treesitter'
-    checkout = 'main',
-  })
+	add({
+		source = 'nvim-treesitter/nvim-treesitter',
+		-- Use `main` branch since `master` branch is frozen, yet still default
+		checkout = 'main',
+		-- Update tree-sitter parser after plugin is updated
+		hooks = { post_checkout = function() vim.cmd('TSUpdate') end },
+	})
+	add({
+		source = 'nvim-treesitter/nvim-treesitter-textobjects',
+		-- Same logic as for 'nvim-treesitter'
+		checkout = 'main',
+	})
 
-  -- Define languages which will have parsers installed and auto enabled
-  local languages = {
-    -- These are already pre-installed with Neovim. Used as an example.
-    'lua',
-    'vimdoc',
-    'markdown',
-    'markdown-inline',
-    'javascript',
-    'typescript',
-    'html',
-    'css',
-    'vento',
+	-- Define languages which will have parsers installed and auto enabled
+	local languages = {
+		-- These are already pre-installed with Neovim. Used as an example.
+		'lua',
+		'vimdoc',
+		'markdown',
+		'markdown-inline',
+		'javascript',
+		'typescript',
+		'html',
+		'css',
+		'vento',
 
-    -- Add here more languages with which you want to use tree-sitter
-    -- To see available languages:
-    -- - Execute `:=require('nvim-treesitter').get_available()`
-    -- - Visit 'SUPPORTED_LANGUAGES.md' file at
-    --   https://github.com/nvim-treesitter/nvim-treesitter/blob/main
-  }
-  local isnt_installed = function(lang)
-    return #vim.api.nvim_get_runtime_file('parser/' .. lang .. '.*', false) == 0
-  end
-  local to_install = vim.tbl_filter(isnt_installed, languages)
-  if #to_install > 0 then require('nvim-treesitter').install(to_install) end
+		-- Add here more languages with which you want to use tree-sitter
+		-- To see available languages:
+		-- - Execute `:=require('nvim-treesitter').get_available()`
+		-- - Visit 'SUPPORTED_LANGUAGES.md' file at
+		--   https://github.com/nvim-treesitter/nvim-treesitter/blob/main
+	}
+	local isnt_installed = function(lang)
+		return #vim.api.nvim_get_runtime_file('parser/' .. lang .. '.*', false) == 0
+	end
+	local to_install = vim.tbl_filter(isnt_installed, languages)
+	if #to_install > 0 then require('nvim-treesitter').install(to_install) end
 
-  -- Enable tree-sitter after opening a file for a target language
-  local filetypes = {}
-  for _, lang in ipairs(languages) do
-    for _, ft in ipairs(vim.treesitter.language.get_filetypes(lang)) do
-      table.insert(filetypes, ft)
-    end
-  end
-  local ts_start = function(ev) vim.treesitter.start(ev.buf) end
-  _G.Config.new_autocmd('FileType', filetypes, ts_start, 'Start tree-sitter')
+	-- Enable tree-sitter after opening a file for a target language
+	local filetypes = {}
+	for _, lang in ipairs(languages) do
+		for _, ft in ipairs(vim.treesitter.language.get_filetypes(lang)) do
+			table.insert(filetypes, ft)
+		end
+	end
+	local ts_start = function(ev) vim.treesitter.start(ev.buf) end
+	_G.Config.new_autocmd('FileType', filetypes, ts_start, 'Start tree-sitter')
 end)
 
 -- Language servers ===========================================================
 
 now_if_args(function()
-  add('neovim/nvim-lspconfig')
+	add('neovim/nvim-lspconfig')
 
-  -- Use `:h vim.lsp.enable()` to automatically enable language server based on
-  -- the rules provided by 'nvim-lspconfig'.
-  -- Use `:h vim.lsp.config()` or 'after/lsp/' directory to configure servers.
-  vim.lsp.enable({
-    --lua
-    'lua_ls',
-    -- ts/js
-    'vtsls',
-    -- css
-    'cssls',
-    'css_variables',
-    -- html
-    'superhtml',
-    'emmet_language_server',
-    'jinja_lsp',
-  })
+	-- Use `:h vim.lsp.enable()` to automatically enable language server based on
+	-- the rules provided by 'nvim-lspconfig'.
+	-- Use `:h vim.lsp.config()` or 'after/lsp/' directory to configure servers.
+	vim.lsp.enable({
+		--lua
+		'lua_ls',
+		-- ts/js
+		'vtsls',
+		-- css
+		'cssls',
+		'css_variables',
+		-- html
+		'superhtml',
+		'emmet_language_server',
+		'jinja_lsp',
+	})
 
-  vim.filetype.add {
-    extension = {
-      njk = 'html.jinja',
-    },
-  }
+	vim.filetype.add {
+		extension = {
+			njk = 'html.jinja',
+		},
+	}
 end)
 
 -- Formatting =================================================================
@@ -118,20 +118,21 @@ end)
 -- The 'stevearc/conform.nvim' plugin is a good and maintained solution for easier
 -- formatting setup.
 later(function()
-  add('stevearc/conform.nvim')
+	add('stevearc/conform.nvim')
 
-  -- See also:
-  -- - `:h Conform`
-  -- - `:h conform-options`
-  -- - `:h conform-formatters`
-  require('conform').setup({
-    -- Map of filetype to formatters
-    -- Make sure that necessary CLI tool is available
-    formatters_by_ft = {
-      lua = { 'stylua' },
-      html = { 'superhtml' },
-    },
-  })
+	-- See also:
+	-- - `:h Conform`
+	-- - `:h conform-options`
+	-- - `:h conform-formatters`
+	require('conform').setup({
+		-- Map of filetype to formatters
+		-- Make sure that necessary CLI tool is available
+		formatters_by_ft = {
+			lua = { 'stylua' },
+			html = { 'superhtml' },
+			javascript = { "prettierd", "prettier", stop_after_first = true },
+		},
+	})
 end)
 
 -- Snippets ===================================================================
@@ -174,20 +175,20 @@ add({ source = "nuvic/flexoki-nvim" })
 --     ColorColumn = { bg = "highlight_med" },
 --   },
 -- })
-vim.cmd("colorscheme vague")
+vim.cmd("colorscheme kanagawa")
 
 -- Box drawing ================================================================
 
 later(function()
-  add({ source = 'jbyuki/venn.nvim' })
+	add({ source = 'jbyuki/venn.nvim' })
 end)
 
 -- Terminal ===================================================================
 
 later(function()
-  add({ source = 'akinsho/toggleterm.nvim' })
-  require("toggleterm").setup({
-    open_mapping = [[<c-\>]],
-    terminal_mappings = true,
-  })
+	add({ source = 'akinsho/toggleterm.nvim' })
+	require("toggleterm").setup({
+		open_mapping = [[<c-\>]],
+		terminal_mappings = true,
+	})
 end)
