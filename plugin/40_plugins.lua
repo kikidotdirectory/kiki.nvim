@@ -96,10 +96,14 @@ now_if_args(function()
 		-- css
 		'cssls',
 		'css_variables',
+		'tailwindcss',
 		-- html
 		'superhtml',
 		'emmet_language_server',
+		-- nunjucks
 		'jinja_lsp',
+		-- json
+		'jsonls',
 	})
 
 	vim.filetype.add {
@@ -131,6 +135,7 @@ later(function()
 			lua = { 'stylua' },
 			html = { 'superhtml' },
 			javascript = { "prettierd", "prettier", stop_after_first = true },
+			css = { "prettierd", "prettier", stop_after_first = true },
 		},
 	})
 end)
