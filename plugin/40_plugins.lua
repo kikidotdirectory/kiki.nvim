@@ -147,7 +147,6 @@ later(function()
 			javascript = { "dprint" },
 			css = { "dprint" },
 			vento = { "dprint" },
-			dts = { "dtsfmt" },
 		},
 	})
 end)
