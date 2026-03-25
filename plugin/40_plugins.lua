@@ -201,10 +201,3 @@ later(function()
 		terminal_mappings = true,
 	})
 end)
-
--- Language tooling ===========================================================
-
-add({
-	source = "linux-cultist/venv-selector.nvim",
-	ft = "python", -- Load when opening Python files
-})
