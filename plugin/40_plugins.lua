@@ -136,8 +136,10 @@ later(function()
 		formatters_by_ft = {
 			lua = { 'stylua' },
 			html = { 'superhtml' },
-			javascript = { "prettierd", "prettier", stop_after_first = true },
-			css = { "prettierd", "prettier", stop_after_first = true },
+			javascript = { "dprint" },
+			css = { "dprint" },
+			vento = { "dprint" },
+			dts = { "dtsfmt" }
 		},
 	})
 end)
