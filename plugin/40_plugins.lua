@@ -101,6 +101,7 @@ now_if_args(function()
 		"lua_ls",
 		-- ts/js
 		"vtsls",
+		"denols",
 		-- css
 		"cssls",
 		"css_variables",
@@ -145,6 +146,7 @@ later(function()
 			lua = { "stylua" },
 			html = { "superhtml" },
 			javascript = { "dprint" },
+			typescript = { "dprint" },
 			css = { "dprint" },
 			vento = { "dprint" },
 		},
