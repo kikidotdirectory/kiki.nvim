@@ -9,8 +9,8 @@
 -- Use this file to install and configure other such plugins.
 
 -- Make concise helpers for installing/adding plugins in two stages
-local add, later = MiniDeps.add, MiniDeps.later
-local now_if_args = _G.Config.now_if_args
+local add = vim.pack.add
+local now_if_args, later = Config.now_if_args, Config.later
 
 -- Tree-sitter ================================================================
 
@@ -31,24 +31,20 @@ local now_if_args = _G.Config.now_if_args
 --
 -- Add these plugins now if file (and not 'mini.starter') is shown after startup.
 now_if_args(function()
+	-- Define hook to update tree-sitter parsers after plugin is updated
+	local ts_update = function()
+		vim.cmd("TSUpdate")
+	end
+	Config.on_packchanged("nvim-treesitter", { "update" }, ts_update, ":TSUpdate")
+
 	add({
-		source = "nvim-treesitter/nvim-treesitter",
-		-- Use `main` branch since `master` branch is frozen, yet still default
-		checkout = "main",
-		-- Update tree-sitter parser after plugin is updated
-		hooks = {
-			post_checkout = function()
-				vim.cmd("TSUpdate")
-			end,
-		},
-	})
-	add({
-		source = "nvim-treesitter/nvim-treesitter-textobjects",
-		-- Same logic as for 'nvim-treesitter'
-		checkout = "main",
+		"https://github.com/nvim-treesitter/nvim-treesitter",
+		"https://github.com/nvim-treesitter/nvim-treesitter-textobjects",
 	})
 
 	-- Define languages which will have parsers installed and auto enabled
+	-- After changing this, restart Neovim once to install necessary parsers. Wait
+	-- for the installation to finish before opening a file for added language(s).
 	local languages = {
 		-- These are already pre-installed with Neovim. Used as an example.
 		"lua",
@@ -91,7 +87,7 @@ end)
 -- Language servers ===========================================================
 
 now_if_args(function()
-	add("neovim/nvim-lspconfig")
+	add({ "https://github.com/neovim/nvim-lspconfig" })
 
 	-- Use `:h vim.lsp.enable()` to automatically enable language server based on
 	-- the rules provided by 'nvim-lspconfig'.
@@ -133,7 +129,7 @@ end)
 -- The 'stevearc/conform.nvim' plugin is a good and maintained solution for easier
 -- formatting setup.
 later(function()
-	add("stevearc/conform.nvim")
+	add({ "https://github.com/stevearc/conform.nvim" })
 
 	-- See also:
 	-- - `:h Conform`
@@ -157,19 +153,22 @@ end)
 
 -- See `:h MiniSnippets.gen_loader.from_lang()`.
 later(function()
-	add("rafamadriz/friendly-snippets")
+	add({ "https://github.com/rafamadriz/friendly-snippets" })
 end)
 
 -- Git Integration ============================================================
 
 later(function()
-	add("aspeddro/gitui.nvim")
+	add({ "https://github.com/aspeddro/gitui.nvim" })
 	require("gitui").setup()
 end)
 
 -- Appearance =================================================================
 
-add({ source = "f-person/auto-dark-mode.nvim" })
+add({ "https://github.com/rebelot/kanagawa.nvim" })
+add({ "https://github.com/nuvic/flexoki-nvim" })
+
+add({ "https://github.com/f-person/auto-dark-mode.nvim" })
 require("auto-dark-mode").setup({
 	set_dark_mode = function()
 		vim.api.nvim_set_option_value("background", "dark", {})
@@ -183,32 +182,5 @@ require("auto-dark-mode").setup({
 	fallback = "dark",
 })
 
-add({ source = "rebelot/kanagawa.nvim" })
-add({ source = "nuvic/flexoki-nvim" })
--- require("koda").setup({
---   highlight_groups = {
---     MiniStarterHeader = { fg = "cyan_two" },
---     MiniStarterSection = { fg = "base" },
---     MiniStarterItem = { fg = "text"},
---     MiniStarterItemPrefix = { fg = "cyan_one" },
---     MiniStatuslineModeNormal = { bg = "yellow_one"},
---     ColorColumn = { bg = "highlight_med" },
---   },
--- })
 vim.cmd("colorscheme kanagawa")
 
--- Box drawing ================================================================
-
-later(function()
-	add({ source = "jbyuki/venn.nvim" })
-end)
-
--- Terminal ===================================================================
-
-later(function()
-	add({ source = "akinsho/toggleterm.nvim" })
-	require("toggleterm").setup({
-		open_mapping = [[<c-\>]],
-		terminal_mappings = true,
-	})
-end)

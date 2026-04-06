@@ -13,8 +13,8 @@ end
 
 -- Paste linewise before/after current line
 -- Usage: `yiw` to yank a word and `]p` to put it on the next line.
-nmap('[p', '<Cmd>exe "put! " . v:register<CR>', 'Paste Above')
-nmap(']p', '<Cmd>exe "put "  . v:register<CR>', 'Paste Below')
+nmap('[p', '<Cmd>exe "iput! " . v:register<CR>', 'Paste Above')
+nmap(']p', '<Cmd>exe "iput "  . v:register<CR>', 'Paste Below')
 
 nmap('<Esc>', '<cmd>nohlsearch<CR>')
 
@@ -107,6 +107,7 @@ local explore_quickfix = function()
   vim.cmd('copen')
 end
 
+nmap_leader('ec', '<Cmd>ClaudeCode<CR>',                    'Claude code')
 nmap_leader('ed', '<Cmd>lua MiniFiles.open()<CR>',          'Directory')
 nmap_leader('ef', explore_at_file,                          'File directory')
 nmap_leader('eg', '<Cmd>Gitui<CR>',                         'Gitui')
