@@ -93,10 +93,6 @@ now_if_args(function()
 
 	-- Restore latest cursor position on file open
 	MiniMisc.setup_restore_cursor()
-
-	-- Synchronize terminal emulator background with Neovim's background to remove
-	-- possibly different color padding around Neovim instance
-	MiniMisc.setup_termbg_sync()
 end)
 
 -- Notifications provider. Shows all kinds of notifications in the upper right
