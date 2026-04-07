@@ -54,7 +54,6 @@ now_if_args(function()
 		"lua",
 		"vimdoc",
 		"markdown",
-		"markdown-inline",
 		"javascript",
 		"typescript",
 		"html",
