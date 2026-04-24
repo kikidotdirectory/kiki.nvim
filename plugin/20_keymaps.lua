@@ -107,7 +107,6 @@ local explore_quickfix = function()
   vim.cmd('copen')
 end
 
-nmap_leader('ec', '<Cmd>ClaudeCode<CR>',                    'Claude code')
 nmap_leader('ed', '<Cmd>lua MiniFiles.open()<CR>',          'Directory')
 nmap_leader('ef', explore_at_file,                          'File directory')
 nmap_leader('eg', '<Cmd>Gitui<CR>',                         'Gitui')
@@ -117,7 +116,6 @@ nmap_leader('enm', edit_plugin_file('30_mini.lua'),          'MINI config')
 nmap_leader('eN', '<Cmd>lua MiniNotify.show_history()<CR>', 'Notifications')
 nmap_leader('eno', edit_plugin_file('10_options.lua'),       'Options config')
 nmap_leader('enp', edit_plugin_file('40_plugins.lua'),       'Plugins config')
-nmap_leader('ev', '<Cmd>edit ~/Documents/zmk-config-4.1/config/visorbearer.keymap<CR>',       'Visorbearer keymap')
 nmap_leader('eq', explore_quickfix,                         'Quickfix')
 
 -- f is for 'Fuzzy Find'. Common usage:
