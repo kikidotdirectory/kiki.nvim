@@ -165,9 +165,7 @@ end)
 -- Appearance =================================================================
 
 add({ "https://github.com/rebelot/kanagawa.nvim" })
-add({ "https://github.com/ThorstenRhau/token" })
 add({ "https://github.com/nuvic/flexoki-nvim" })
-add({ "https://github.com/Verf/deepwhite.nvim" })
 
 add({ "https://github.com/f-person/auto-dark-mode.nvim" })
 require("auto-dark-mode").setup({
@@ -181,4 +179,4 @@ require("auto-dark-mode").setup({
 	fallback = "dark",
 })
 
-vim.cmd("colorscheme token")
+vim.cmd("colorscheme flexoki")
