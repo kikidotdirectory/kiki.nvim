@@ -200,7 +200,9 @@ end)
 -- Uncomment next line (use `gcc`) to enable.
 later(function()
 	require("mini.animate").setup({
-		cursor = false,
+		cursor = {
+			enable = false,
+		},
 	})
 end)
 
