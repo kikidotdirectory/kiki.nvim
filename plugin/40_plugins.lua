@@ -129,6 +129,17 @@ end)
 -- Note-taking (Obsidian)
 add({ "https://github.com/nvim-lua/plenary.nvim" }) -- dependency --
 add({ { src = "https://github.com/obsidian-nvim/obsidian.nvim", version = "*" } })
+require("obsidian").setup({
+	workspaces = {
+		{
+			name = "meandering",
+			path = "~/Documents/meandering",
+		},
+	},
+	picker = {
+		name = "mini.pick",
+	},
+})
 
 -- exrc (Per-project configuration)
 -- Loads project-local config files (e.g. .nvim.lua) when trusted
@@ -140,6 +151,10 @@ add({ "https://github.com/folke/snacks.nvim" }) -- dependency --
 require("snacks").setup()
 add({ "https://github.com/coder/claudecode.nvim" })
 require("claudecode").setup({
+	diff_opts = {
+		open_in_new_tab = true,
+		keep_terminal_focus = true,
+	},
 	terminal = {
 		snacks_win_opts = {
 			keys = {
