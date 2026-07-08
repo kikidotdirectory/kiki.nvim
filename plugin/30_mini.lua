@@ -764,15 +764,22 @@ later(function()
 		snippets = {
 			-- Always load 'snippets/global.json' from config directory
 			snippets.gen_loader.from_file(config_path .. "/snippets/global.json"),
-			-- Load vento snippets by filetype (from_lang uses treesitter lang which
-			-- reports 'html' inside vento files, so check vim.bo.filetype directly)
-			function()
-				if vim.bo.filetype == "vento" then
-					return snippets.read_file(config_path .. "/after/snippets/vento.json")
-				end
-			end,
+
 			-- Load from 'snippets/' directory of plugins, like 'friendly-snippets'
 			snippets.gen_loader.from_lang({ lang_patterns = lang_patterns }),
+
+			-- Load project-local snippets with `gen_loader.from_file()`
+			-- and relative path (file doesn't have to be present)
+			snippets.gen_loader.from_file(".vscode/project.code-snippets"),
+
+			-- Custom loader for language-specific project-local snippets
+			function(context)
+				local rel_path = ".vscode/" .. context.lang .. ".code-snippets"
+				if vim.fn.filereadable(rel_path) == 0 then
+					return
+				end
+				return snippets.read_file(rel_path)
+			end,
 		},
 	})
 
