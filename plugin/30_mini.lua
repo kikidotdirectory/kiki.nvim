@@ -28,15 +28,7 @@ local now, now_if_args, later = Config.now, Config.now_if_args, Config.later
 
 -- Step one ===================================================================
 
--- Common configuration presets. Example usage:
--- - `<C-s>` in Insert mode - save and go to Normal mode
--- - `go` / `gO` - insert empty line before/after in Normal mode
--- - `gy` / `gp` - copy / paste from system clipboard
--- - `\` + key - toggle common options. Like `\h` toggles highlighting search.
--- - `<C-hjkl>` (four combos) - navigate between windows.
--- - `<M-hjkl>` in Insert/Command mode - navigate in that mode.
---
--- See also:
+-- See:
 -- - `:h MiniBasics.config.options` - list of adjusted options
 -- - `:h MiniBasics.config.mappings` - list of created mappings
 -- - `:h MiniBasics.config.autocommands` - list of created autocommands
@@ -44,12 +36,6 @@ now(function()
 	require("mini.basics").setup({
 		-- Manage options in 'plugin/10_options.lua' for didactic purposes
 		options = { basic = false },
-		mappings = {
-			-- Create `<C-hjkl>` mappings for window navigation
-			windows = true,
-			-- Create `<M-hjkl>` mappings for navigation in Insert and Command modes
-			move_with_alt = true,
-		},
 	})
 end)
 
@@ -73,14 +59,8 @@ now(function()
 	later(MiniIcons.tweak_lsp_kind)
 end)
 
--- Miscellaneous small but useful functions. Example usage:
+-- Miscellaneous small but useful functions.
 -- - `<Leader>oz` - toggle between "zoomed" and regular view of current buffer
--- - `<Leader>or` - resize window to its "editable width"
--- - `:lua put_text(vim.lsp.get_clients())` - put output of a function below
---   cursor in current buffer. Useful for a detailed exploration.
--- - `:lua put(MiniMisc.stat_summary(MiniMisc.bench_time(f, 100)))` - run
---   function `f` 100 times and report statistical summary of execution times
---
 -- Uses `now()` for `setup_xxx()` to work when started like `nvim -- path/to/file`
 now_if_args(function()
 	-- Makes `:h MiniMisc.put()` and `:h MiniMisc.put_text()` public
@@ -220,9 +200,7 @@ end)
 -- Uncomment next line (use `gcc`) to enable.
 later(function()
 	require("mini.animate").setup({
-		cursor = {
-			enable = false,
-		},
+		cursor = false,
 	})
 end)
 

@@ -7,16 +7,12 @@
 -- General mappings ===========================================================
 
 local nmap = function(lhs, rhs, desc)
-  -- See `:h vim.keymap.set()`
-  vim.keymap.set('n', lhs, rhs, { desc = desc })
+	-- See `:h vim.keymap.set()`
+	vim.keymap.set("n", lhs, rhs, { desc = desc })
 end
 
--- Paste linewise before/after current line
--- Usage: `yiw` to yank a word and `]p` to put it on the next line.
-nmap('[p', '<Cmd>exe "iput! " . v:register<CR>', 'Paste Above')
-nmap(']p', '<Cmd>exe "iput "  . v:register<CR>', 'Paste Below')
+nmap("<Esc>", "<cmd>nohlsearch<CR>")
 
-nmap('<Esc>', '<cmd>nohlsearch<CR>')
 vim.keymap.set({ "n", "x" }, "<C-,>", "<Cmd>ClaudeCodeFocus<CR>", { desc = "Claude Code (Ctrl+,)" })
 -- terminal hide is mapped in plugins/20_keymaps.lua
 
@@ -32,29 +28,6 @@ claudemap("n", "m", "<Cmd>ClaudeCodeSelectModel<CR>", "Select model")
 
 -- stylua: ignore start
 -- Leader mappings ============================================================
-
--- Neovim has the concept of a Leader key (see `:h <Leader>`). It is a configurable
--- key that is primarily used for "workflow" mappings (opposed to text editing).
--- Like "open file explorer", "create scratch buffer", "pick from buffers".
---
--- In 'plugin/10_options.lua' <Leader> is set to <Space>, i.e. press <Space>
--- whenever there is a suggestion to press <Leader>.
---
--- This config uses a "two key Leader mappings" approach: first key describes
--- semantic group, second key executes an action. Both keys are usually chosen
--- to create some kind of mnemonic.
--- Example: `<Leader>f` groups "find" type of actions; `<Leader>ff` - find files.
--- Use this section to add Leader mappings in a structural manner.
---
--- Usually if there are global and local kinds of actions, lowercase second key
--- denotes global and uppercase - local.
--- Example: `<Leader>fs` / `<Leader>fS` - find workspace/document LSP symbols.
---
--- Many of the mappings use 'mini.nvim' modules set up in 'plugin/30_mini.lua'.
-
--- Create a global table with information about Leader groups in certain modes.
--- This is used to provide 'mini.clue' with extra clues.
--- Add an entry if you create a new group.
 _G.Config.leader_group_clues = {
   { mode = 'n', keys = '<Leader>b', desc = '+Buffer' },
   { mode = 'n', keys = '<Leader>e', desc = '+Explore/Edit' },
@@ -72,10 +45,6 @@ _G.Config.leader_group_clues = {
 }
 
 -- Helpers for a more concise `<Leader>` mappings.
--- Most of the mappings use `<Cmd>...<CR>` string as a right hand side (RHS) in
--- an attempt to be more concise yet descriptive. See `:h <Cmd>`.
--- This approach also doesn't require the underlying commands/functions to exist
--- during mapping creation: a "lazy loading" approach to improve startup time.
 local nmap_leader = function(suffix, rhs, desc)
   vim.keymap.set('n', '<Leader>' .. suffix, rhs, { desc = desc })
 end
@@ -83,10 +52,7 @@ local xmap_leader = function(suffix, rhs, desc)
   vim.keymap.set('x', '<Leader>' .. suffix, rhs, { desc = desc })
 end
 
--- b is for 'Buffer'. Common usage:
--- - `<Leader>bs` - create scratch (temporary) buffer
--- - `<Leader>ba` - navigate to the alternative buffer
--- - `<Leader>bw` - wipeout (fully delete) current buffer
+-- Buffer
 local new_scratch_buffer = function()
   vim.api.nvim_win_set_buf(0, vim.api.nvim_create_buf(true, true))
 end
@@ -99,10 +65,6 @@ nmap_leader('bw', '<Cmd>lua MiniBufremove.wipeout()<CR>',        'Wipeout')
 nmap_leader('bW', '<Cmd>lua MiniBufremove.wipeout(0, true)<CR>', 'Wipeout!')
 
 -- e is for 'Explore' and 'Edit'. Common usage:
--- - `<Leader>ed` - open explorer at current working directory
--- - `<Leader>ef` - open directory of current file (needs to be present on disk)
--- - `<Leader>ei` - edit 'init.lua'
--- - All mappings that use `edit_plugin_file` - edit 'plugin/' config files
 local edit_plugin_file = function(filename)
   return string.format('<Cmd>edit %s/plugin/%s<CR>', vim.fn.stdpath('config'), filename)
 end
@@ -117,22 +79,15 @@ end
 nmap_leader('ed', '<Cmd>lua MiniFiles.open()<CR>',          'Directory')
 nmap_leader('ef', explore_at_file,                          'File directory')
 nmap_leader('eg', '<Cmd>Gitui<CR>',                         'Gitui')
-nmap_leader('eni', '<Cmd>edit $MYVIMRC<CR>',                 'init.lua')
-nmap_leader('enk', edit_plugin_file('20_keymaps.lua'),       'Keymaps config')
-nmap_leader('enm', edit_plugin_file('30_mini.lua'),          'MINI config')
+nmap_leader('eni', '<Cmd>edit $MYVIMRC<CR>',                'init.lua')
+nmap_leader('enk', edit_plugin_file('20_keymaps.lua'),      'Keymaps config')
+nmap_leader('enm', edit_plugin_file('30_mini.lua'),         'MINI config')
 nmap_leader('eN', '<Cmd>lua MiniNotify.show_history()<CR>', 'Notifications')
-nmap_leader('eno', edit_plugin_file('10_options.lua'),       'Options config')
-nmap_leader('enp', edit_plugin_file('40_plugins.lua'),       'Plugins config')
+nmap_leader('eno', edit_plugin_file('10_options.lua'),      'Options config')
+nmap_leader('enp', edit_plugin_file('40_plugins.lua'),      'Plugins config')
 nmap_leader('eq', explore_quickfix,                         'Quickfix')
 
 -- f is for 'Fuzzy Find'. Common usage:
--- - `<Leader>ff` - find files; for best performance requires `ripgrep`
--- - `<Leader>fg` - find inside files; requires `ripgrep`
--- - `<Leader>fh` - find help tag
--- - `<Leader>fr` - resume latest picker
--- - `<Leader>fv` - all visited paths; requires 'mini.visits'
---
--- All these use 'mini.pick'. See `:h MiniPick-overview` for an overview.
 local pick_added_hunks_buf = '<Cmd>Pick git_hunks path="%" scope="staged"<CR>'
 local pick_workspace_symbols_live = '<Cmd>Pick lsp scope="workspace_symbol_live"<CR>'
 
@@ -183,10 +138,6 @@ nmap_leader('gs', '<Cmd>lua MiniGit.show_at_cursor()<CR>',  'Show at cursor')
 xmap_leader('gs', '<Cmd>lua MiniGit.show_at_cursor()<CR>', 'Show at selection')
 
 -- l is for 'Language'. Common usage:
--- - `<Leader>ld` - show more diagnostic details in a floating window
--- - `<Leader>lr` - perform rename via LSP
--- - `<Leader>ls` - navigate to source definition of symbol under cursor
---
 -- NOTE: most LSP mappings represent a more structured way of replacing built-in
 -- LSP mappings (like `:h gra` and others). This is needed because `gr` is mapped
 -- by an "replace" operator in 'mini.operators' (which is more commonly used).
