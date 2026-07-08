@@ -156,11 +156,8 @@ require("claudecode").setup({
 	},
 })
 
-vim.keymap.set({ "n", "x" }, "<C-,>", "<cmd>ClaudeCodeFocus<cr>", { desc = "Claude Code (Ctrl+,)" })
-
 -- Aesthetic -------------------------------------------------------------------
 
 -- Colorscheme
 add({ "https://github.com/neanias/everforest-nvim" })
 vim.cmd("colorscheme everforest")
-

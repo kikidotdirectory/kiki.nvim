@@ -17,13 +17,20 @@ nmap('[p', '<Cmd>exe "iput! " . v:register<CR>', 'Paste Above')
 nmap(']p', '<Cmd>exe "iput "  . v:register<CR>', 'Paste Below')
 
 nmap('<Esc>', '<cmd>nohlsearch<CR>')
+vim.keymap.set({ "n", "x" }, "<C-,>", "<Cmd>ClaudeCodeFocus<CR>", { desc = "Claude Code (Ctrl+,)" })
+-- terminal hide is mapped in plugins/20_keymaps.lua
 
--- Many general mappings are created by 'mini.basics'. See 'plugin/30_mini.lua'
+local claudemap = function(modes, suffix, rhs, desc)
+	vim.keymap.set(modes, "<C-s>" .. suffix, rhs, { desc = desc })
+end
+
+claudemap("v", "s", "<Cmd>ClaudeCodeSend<CR>", "Send selection to Claude")
+claudemap("n", "w", "<Cmd>ClaudeCodeDiffAccept<CR>", "Accept Claude diff")
+claudemap("n", "q", "<Cmd>ClaudeCodeDiffDeny<CR>", "Deny Claude diff")
+claudemap("n", "a", "<Cmd>ClaudeCodeAdd %<CR>", "Add current buffer")
+claudemap("n", "m", "<Cmd>ClaudeCodeSelectModel<CR>", "Select model")
 
 -- stylua: ignore start
--- The next part (until `-- stylua: ignore end`) is aligned manually for easier
--- reading. Consider preserving this or remove `-- stylua` lines to autoformat.
-
 -- Leader mappings ============================================================
 
 -- Neovim has the concept of a Leader key (see `:h <Leader>`). It is a configurable
