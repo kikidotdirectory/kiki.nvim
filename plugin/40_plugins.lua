@@ -1,7 +1,18 @@
 local add = vim.pack.add
 local now_if_args, later, on_filetype = Config.now_if_args, Config.later, Config.on_filetype
 
--- Tree-sitter ================================================================
+-- Plugins below are grouped into three tiers:
+-- - Necessary  - core editing/language tooling the config depends on
+-- - Functional - features that add specific workflows (git, notes, AI, etc.)
+-- - Aesthetic  - looks and feel (colorscheme, UI chrome)
+--
+-- Within each tier, plugins load via the helpers from 'init.lua':
+-- `now_if_args` runs eagerly only when Neovim opens with a file argument,
+-- `later` defers until Neovim is idle.
+
+-- Core ========================================================================
+
+-- Tree-sitter --
 now_if_args(function()
 	-- Define hook to update tree-sitter parsers after plugin is updated
 	local ts_update = function()
@@ -50,8 +61,7 @@ now_if_args(function()
 	_G.Config.new_autocmd("FileType", filetypes, ts_start, "Start tree-sitter")
 end)
 
--- Language servers ===========================================================
-
+-- Language servers --
 now_if_args(function()
 	add({ "https://github.com/neovim/nvim-lspconfig" })
 	vim.lsp.enable({
@@ -77,8 +87,8 @@ now_if_args(function()
 	})
 end)
 
--- Formatting =================================================================
-
+-- Formatting --
+-- Maps filetypes to formatter CLIs; each formatter must be installed separately.
 later(function()
 	add({ "https://github.com/stevearc/conform.nvim" })
 	require("conform").setup({
@@ -103,33 +113,31 @@ later(function()
 	})
 end)
 
--- Snippets ===================================================================
+-- Functional ------------------------------------------------------------------
 
+-- Snippets
 later(function()
 	add({ "https://github.com/rafamadriz/friendly-snippets" })
 end)
 
--- Git Integration ============================================================
-
+-- Git integration
 later(function()
 	add({ "https://github.com/aspeddro/gitui.nvim" })
 	require("gitui").setup()
 end)
 
--- Appearance =================================================================
-
-add({ "https://github.com/neanias/everforest-nvim" })
-vim.cmd("colorscheme everforest")
-
-add({ "https://github.com/nvim-lua/plenary.nvim" })
+-- Note-taking (Obsidian)
+add({ "https://github.com/nvim-lua/plenary.nvim" }) -- dependency --
 add({ { src = "https://github.com/obsidian-nvim/obsidian.nvim", version = "*" } })
 
+-- exrc (Per-project configuration)
+-- Loads project-local config files (e.g. .nvim.lua) when trusted
 add({ "https://github.com/jedrzejboczar/exrc.nvim" })
 require("exrc").setup()
 
-add({ "https://github.com/folke/snacks.nvim" })
+-- Claude Code integration
+add({ "https://github.com/folke/snacks.nvim" }) -- dependency --
 require("snacks").setup()
-
 add({ "https://github.com/coder/claudecode.nvim" })
 require("claudecode").setup({
 	terminal = {
@@ -149,3 +157,10 @@ require("claudecode").setup({
 })
 
 vim.keymap.set({ "n", "x" }, "<C-,>", "<cmd>ClaudeCodeFocus<cr>", { desc = "Claude Code (Ctrl+,)" })
+
+-- Aesthetic -------------------------------------------------------------------
+
+-- Colorscheme
+add({ "https://github.com/neanias/everforest-nvim" })
+vim.cmd("colorscheme everforest")
+
