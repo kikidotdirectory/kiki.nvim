@@ -15,17 +15,14 @@
 -- This is also a good place to set buffer-local 'mini.nvim' variables.
 -- See `:h mini.nvim-buffer-local-config` and `:h mini.nvim-disabling-recipes`.
 
--- Disable autocompletion for prose writing
-vim.b.minicompletion_disable = true
-
 -- Enable spelling and wrap for window
-vim.cmd('setlocal spell wrap')
+vim.cmd("setlocal wrap")
 
 -- Fold with tree-sitter
-vim.cmd('setlocal foldmethod=expr foldexpr=v:lua.vim.treesitter.foldexpr()')
+vim.cmd("setlocal foldmethod=expr foldexpr=v:lua.vim.treesitter.foldexpr()")
 
 -- Disable built-in `gO` mapping in favor of 'mini.basics'
-vim.keymap.del('n', 'gO', { buffer = 0 })
+vim.keymap.del("n", "gO", { buffer = 0 })
 
 -- Navigate through visual lines in .md files
 vim.keymap.set("n", "<Down>", "gj", { buffer = true })
@@ -33,17 +30,20 @@ vim.keymap.set("n", "<Up>", "gk", { buffer = true })
 
 -- Set markdown-specific surrounding in 'mini.surround'
 vim.b.minisurround_config = {
-  custom_surroundings = {
-    -- Markdown link. Common usage:
-    -- `saiwL` + [type/paste link] + <CR> - add link
-    -- `sdL` - delete link
-    -- `srLL` + [type/paste link] + <CR> - replace link
-    L = {
-      input = { '%[().-()%]%(.-%)' },
-      output = function()
-        local link = require('mini.surround').user_input('Link: ')
-        return { left = '[', right = '](' .. link .. ')' }
-      end,
-    },
-  },
+	custom_surroundings = {
+		-- Markdown link. Common usage:
+		-- `saiwL` + [type/paste link] + <CR> - add link
+		-- `sdL` - delete link
+		-- `srLL` + [type/paste link] + <CR> - replace link
+		L = {
+			input = { "%[().-()%]%(.-%)" },
+			output = function()
+				local link = require("mini.surround").user_input("Link: ")
+				return { left = "[", right = "](" .. link .. ")" }
+			end,
+		},
+	},
 }
+
+-- disable MiniHipatterns 
+vim.b.minihipatterns_disable = true
