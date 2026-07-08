@@ -476,6 +476,14 @@ now_if_args(function()
 		MiniFiles.set_bookmark("w", vim.fn.getcwd, { desc = "Working directory" })
 	end
 	_G.Config.new_autocmd("User", "MiniFilesExplorerOpen", add_marks, "Add bookmarks")
+
+	_G.Config.new_autocmd("User", "MiniFilesBufferCreate", function(args)
+		local buf = args.data.buf_id
+		vim.keymap.set("n", "l", "<Right>", { buffer = buf, remap = true })
+		vim.keymap.set("n", "L", "<S-Right>", { buffer = buf, remap = true })
+		vim.keymap.set("n", "h", "<Left>", { buffer = buf, remap = true })
+		vim.keymap.set("n", "H", "<S-Left>", { buffer = buf, remap = true })
+	end, "Add hjkl mappings")
 end)
 
 -- Git integration for more straightforward Git actions based on Neovim's state.
