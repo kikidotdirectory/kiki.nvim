@@ -166,10 +166,23 @@ require("claudecode").setup({
 					mode = "t",
 					desc = "Hide (Ctrl+,)",
 				},
+				claude_switch_ctrl = {
+					"<C-.>",
+					function()
+						vim.cmd("wincmd p")
+					end,
+					mode = "t",
+					desc = "Switch to buffer (Ctrl+.)",
+				},
 			},
 		},
 	},
 })
+
+-- Show the Claude terminal without focusing it (creates/reveals, keeps cursor put)
+vim.api.nvim_create_user_command("ClaudeCodeShow", function()
+	require("claudecode.terminal").ensure_visible()
+end, { desc = "Show Claude Code terminal without focusing it" })
 
 -- Aesthetic -------------------------------------------------------------------
 
