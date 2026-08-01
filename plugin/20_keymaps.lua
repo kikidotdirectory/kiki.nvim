@@ -14,7 +14,8 @@ end
 nmap("<Esc>", "<cmd>nohlsearch<CR>")
 
 vim.keymap.set({ "n", "x" }, "<C-,>", "<Cmd>ClaudeCodeFocus<CR>", { desc = "Claude Code (Ctrl+,)" })
--- terminal hide is mapped in plugins/20_keymaps.lua
+vim.keymap.set({ "n", "x" }, "<C-.>", "<Cmd>ClaudeCodeOpen<CR>", { desc = "Switch to Claude Code (Ctrl+.)" })
+-- terminal hide/switch-back are mapped in plugin/40_plugins.lua
 
 local claudemap = function(modes, suffix, rhs, desc)
 	vim.keymap.set(modes, "<C-s>" .. suffix, rhs, { desc = desc })
@@ -25,6 +26,7 @@ claudemap("n", "w", "<Cmd>ClaudeCodeDiffAccept<CR>", "Accept Claude diff")
 claudemap("n", "q", "<Cmd>ClaudeCodeDiffDeny<CR>", "Deny Claude diff")
 claudemap("n", "a", "<Cmd>ClaudeCodeAdd %<CR>", "Add current buffer")
 claudemap("n", "m", "<Cmd>ClaudeCodeSelectModel<CR>", "Select model")
+claudemap("n", "v", "<Cmd>ClaudeCodeShow<CR>", "Show Claude Code (no focus)")
 
 -- stylua: ignore start
 -- Leader mappings ============================================================
