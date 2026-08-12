@@ -84,7 +84,15 @@ now_if_args(function()
 		"pylsp",
 		-- bash
 		"bashls",
+		-- swift
+		"sourcekit",
 	})
+end)
+
+-- Install LSP/formatting/linter executables ==================================
+now_if_args(function()
+	add({ "https://github.com/mason-org/mason.nvim" })
+	require("mason").setup()
 end)
 
 -- Formatting --
@@ -100,7 +108,7 @@ later(function()
 		-- Corresponding CLI tool needs to be installed
 		formatters_by_ft = {
 			lua = { "stylua" },
-			html = { "superhtml" },
+			html = { "dprint", "superhtml", stop_after_first = true },
 			javascript = { "dprint" },
 			typescript = { "dprint" },
 			json = { "dprint" },
@@ -109,6 +117,7 @@ later(function()
 			svelte = { "prettierd", "prettier", stop_after_first = true },
 			python = { "black" },
 			bash = { "shfmt" },
+			swift = { "swift" },
 		},
 	})
 end)
@@ -127,19 +136,48 @@ later(function()
 end)
 
 -- Note-taking (Obsidian)
-add({ "https://github.com/nvim-lua/plenary.nvim" }) -- dependency --
-add({ { src = "https://github.com/obsidian-nvim/obsidian.nvim", version = "*" } })
-require("obsidian").setup({
-	workspaces = {
-		{
-			name = "meandering",
-			path = "~/Documents/meandering",
+later(function()
+	add({ "https://github.com/nvim-lua/plenary.nvim" }) -- dependency --
+	add({ { src = "https://github.com/obsidian-nvim/obsidian.nvim", version = "v3.16.6" } })
+	require("obsidian").setup({
+		legacy_commands = false,
+		note_id_func = require("obsidian.builtin").title_id,
+		footer = {
+			enabled = false,
+			separator = false,
 		},
-	},
-	picker = {
-		name = "mini.pick",
-	},
-})
+		checkbox = {
+			enabled = true,
+			create_new = true,
+			order = { " ", "~", "x" },
+		},
+		workspaces = {
+			{
+				name = "meandering",
+				path = "~/Documents/meandering",
+			},
+		},
+		templates = {
+			folder = "templates",
+		},
+		picker = {
+			name = "mini.pick",
+		},
+	})
+
+	vim.api.nvim_create_autocmd("CmdlineChanged", {
+		callback = function()
+			local cmdline = vim.fn.getcmdline()
+			if vim.fn.getcmdtype() ~= ":" then
+				return
+			end
+			if not cmdline:match("^Obsidian[A-Za-z0-9]*$") then
+				return
+			end
+			vim.fn.wildtrigger()
+		end,
+	})
+end)
 
 -- exrc (Per-project configuration)
 -- Loads project-local config files (e.g. .nvim.lua) when trusted
@@ -147,45 +185,55 @@ add({ "https://github.com/jedrzejboczar/exrc.nvim" })
 require("exrc").setup()
 
 -- Claude Code integration
-add({ "https://github.com/folke/snacks.nvim" }) -- dependency --
-require("snacks").setup()
-add({ "https://github.com/coder/claudecode.nvim" })
-require("claudecode").setup({
-	diff_opts = {
-		open_in_new_tab = true,
-		keep_terminal_focus = true,
-	},
-	terminal = {
-		snacks_win_opts = {
-			keys = {
-				claude_hide_ctrl = {
-					"<C-,>",
-					function(self)
-						self:hide()
-					end,
-					mode = "t",
-					desc = "Hide (Ctrl+,)",
-				},
-				claude_switch_ctrl = {
-					"<C-.>",
-					function()
-						vim.cmd("wincmd p")
-					end,
-					mode = "t",
-					desc = "Switch to buffer (Ctrl+.)",
+later(function()
+	add({ "https://github.com/folke/snacks.nvim" }) -- dependency --
+	require("snacks").setup()
+	add({ "https://github.com/coder/claudecode.nvim" })
+	require("claudecode").setup({
+		-- Focus the Claude terminal after a successful send instead of leaving
+		-- focus (and thus insert mode, via `terminal.auto_insert`) in the source buffer.
+		focus_after_send = true,
+		diff_opts = {
+			open_in_new_tab = true,
+			keep_terminal_focus = true,
+		},
+		terminal = {
+			snacks_win_opts = {
+				keys = {
+					claude_hide_ctrl = {
+						"<C-,>",
+						function(self)
+							self:hide()
+						end,
+						mode = "t",
+						desc = "Hide (Ctrl+,)",
+					},
+					claude_switch_ctrl = {
+						"<C-.>",
+						function()
+							vim.cmd("wincmd p")
+						end,
+						mode = "t",
+						desc = "Switch to buffer (Ctrl+.)",
+					},
 				},
 			},
 		},
-	},
-})
+	})
 
--- Show the Claude terminal without focusing it (creates/reveals, keeps cursor put)
-vim.api.nvim_create_user_command("ClaudeCodeShow", function()
-	require("claudecode.terminal").ensure_visible()
-end, { desc = "Show Claude Code terminal without focusing it" })
+	-- Show the Claude terminal without focusing it (creates/reveals, keeps cursor put)
+	vim.api.nvim_create_user_command("ClaudeCodeShow", function()
+		require("claudecode.terminal").ensure_visible()
+	end, { desc = "Show Claude Code terminal without focusing it" })
+end)
+
+-- -- typescript errors
+-- later(function()
+-- 	add({ "https://github.com/dmmulroy/ts-error-translator.nvim" })
+-- 	require("ts-error-translator").setup()
+-- end)
 
 -- Aesthetic -------------------------------------------------------------------
-
 -- Colorscheme
 add({ "https://github.com/neanias/everforest-nvim" })
 vim.cmd("colorscheme everforest")

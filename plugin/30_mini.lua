@@ -59,6 +59,12 @@ now(function()
 	later(MiniIcons.tweak_lsp_kind)
 end)
 
+now(function()
+	require("mini.cmdline").setup({
+		-- Manage options in 'plugin/10_options.lua' for didactic purposes
+	})
+end)
+
 -- Miscellaneous small but useful functions.
 -- - `<Leader>oz` - toggle between "zoomed" and regular view of current buffer
 -- Uses `now()` for `setup_xxx()` to work when started like `nvim -- path/to/file`
@@ -364,6 +370,9 @@ later(function()
 			auto_setup = false,
 			process_items = process_items,
 		},
+		-- Disable fallback to built-in keyword completion (words already in the
+		-- document/buffers) when there are no LSP candidates.
+		fallback_action = function() end,
 	})
 
 	-- Set 'omnifunc' for LSP completion only when needed.
@@ -499,6 +508,10 @@ later(function()
 			hack = hi_words({ "HACK", "Hack", "hack" }, "MiniHipatternsHack"),
 			todo = hi_words({ "TODO", "Todo", "todo" }, "MiniHipatternsTodo"),
 			note = hi_words({ "NOTE", "Note", "note" }, "MiniHipatternsNote"),
+			docs = {
+				pattern = "%-%-.-|()[^|]*()|",
+				group = "MiniHipatternsNote",
+			},
 
 			-- Highlight hex color string (#aabbcc) with that color as a background
 			hex_color = hipatterns.gen_highlighter.hex_color(),

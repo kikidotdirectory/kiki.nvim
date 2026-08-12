@@ -24,6 +24,8 @@ vim.cmd("setlocal foldmethod=expr foldexpr=v:lua.vim.treesitter.foldexpr()")
 -- Disable built-in `gO` mapping in favor of 'mini.basics'
 vim.keymap.del("n", "gO", { buffer = 0 })
 
+vim.opt.conceallevel = 2
+
 -- Navigate through visual lines in .md files
 vim.keymap.set("n", "<Down>", "gj", { buffer = true })
 vim.keymap.set("n", "<Up>", "gk", { buffer = true })
@@ -45,5 +47,12 @@ vim.b.minisurround_config = {
 	},
 }
 
--- disable MiniHipatterns 
+vim.api.nvim_create_autocmd("BufWritePre", {
+  pattern = "*",
+  callback = function()
+    MiniTrailspace.trim()
+  end,
+})
+
+-- disable MiniHipatterns
 vim.b.minihipatterns_disable = true
