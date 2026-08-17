@@ -13,6 +13,11 @@ end
 
 nmap("<Esc>", "<cmd>nohlsearch<CR>")
 
+-- Move between tabpages. Normal mode only, so that `<C-Left>`/`<C-Right>` keep
+-- their built-in word-motion behavior in Insert mode.
+nmap("<C-Left>", "<Cmd>tabprevious<CR>", "Previous tab")
+nmap("<C-Right>", "<Cmd>tabnext<CR>", "Next tab")
+
 vim.keymap.set({ "n", "x" }, "<C-,>", "<Cmd>ClaudeCodeFocus<CR>", { desc = "Claude Code (Ctrl+,)" })
 vim.keymap.set({ "n", "x" }, "<C-.>", "<Cmd>ClaudeCodeOpen<CR>", { desc = "Switch to Claude Code (Ctrl+.)" })
 -- terminal hide/switch-back are mapped in plugin/40_plugins.lua
@@ -41,6 +46,7 @@ _G.Config.leader_group_clues = {
   { mode = 'n', keys = '<Leader>m', desc = '+Map' },
   { mode = 'n', keys = '<Leader>o', desc = '+Other' },
   { mode = 'n', keys = '<Leader>s', desc = '+Session' },
+  { mode = 'n', keys = '<Leader>t', desc = '+Tab' },
   { mode = 'n', keys = '<Leader>v', desc = '+Visits' },
 
   { mode = 'x', keys = '<Leader>g', desc = '+Git' },
@@ -259,6 +265,20 @@ nmap_leader('sd', '<Cmd>lua MiniSessions.select("delete")<CR>', 'Delete')
 nmap_leader('sn', '<Cmd>lua ' .. session_new .. '<CR>',         'New')
 nmap_leader('sr', '<Cmd>lua MiniSessions.select("read")<CR>',   'Read')
 nmap_leader('sw', '<Cmd>lua MiniSessions.write()<CR>',          'Write current')
+
+-- t is for 'Tab'. Common usage:
+-- - `<Leader>tn` - open a new tabpage
+-- - `<Leader>th` / `<Leader>tl` - go to previous/next tabpage (same as `<C-Left>`/`<C-Right>`)
+-- - `<Leader>t<` / `<Leader>t>` - move current tabpage left/right
+nmap_leader('t<', '<Cmd>-tabmove<CR>',    'Move left')
+nmap_leader('t>', '<Cmd>+tabmove<CR>',    'Move right')
+nmap_leader('tc', '<Cmd>tabclose<CR>',    'Close')
+nmap_leader('tf', '<Cmd>tabfirst<CR>',    'First')
+nmap_leader('th', '<Cmd>tabprevious<CR>', 'Previous')
+nmap_leader('tl', '<Cmd>tabnext<CR>',     'Next')
+nmap_leader('tL', '<Cmd>tablast<CR>',     'Last')
+nmap_leader('tn', '<Cmd>tabnew<CR>',      'New')
+nmap_leader('to', '<Cmd>tabonly<CR>',     'Only (close others)')
 
 -- v is for 'Visits'. Common usage:
 -- - `<Leader>vv` - add    "core" label to current file.
