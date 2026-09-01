@@ -48,11 +48,12 @@ vim.b.minisurround_config = {
 }
 
 vim.api.nvim_create_autocmd("BufWritePre", {
-  pattern = "*",
-  callback = function()
-    MiniTrailspace.trim()
-  end,
+	pattern = "*",
+	callback = function()
+		MiniTrailspace.trim()
+	end,
 })
 
 -- disable MiniHipatterns
 vim.b.minihipatterns_disable = true
+vim.b.minipairs_disable = true
