@@ -38,6 +38,8 @@ now_if_args(function()
 		"svelte",
 		"yaml",
 		"json",
+		"php",
+		"blade",
 		"sql",
 	}
 
