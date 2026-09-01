@@ -84,6 +84,8 @@ now_if_args(function()
 		"bashls",
 		-- swift
 		"sourcekit",
+		-- typst
+		"tinymist",
 	})
 end)
 
