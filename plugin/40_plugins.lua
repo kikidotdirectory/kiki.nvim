@@ -38,6 +38,7 @@ now_if_args(function()
 		"svelte",
 		"yaml",
 		"json",
+		"sql",
 	}
 
 	local isnt_installed = function(lang)
@@ -86,6 +87,8 @@ now_if_args(function()
 		"sourcekit",
 		-- typst
 		"tinymist",
+		--sql
+		"sqls",
 	})
 end)
 
@@ -117,6 +120,7 @@ later(function()
 			svelte = { "prettierd", "prettier", stop_after_first = true },
 			bash = { "shfmt" },
 			swift = { "swift" },
+			sql = { "sqlfmt" },
 		},
 	})
 end)
