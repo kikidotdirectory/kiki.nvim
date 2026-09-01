@@ -80,8 +80,6 @@ now_if_args(function()
 		"emmet_language_server",
 		-- json
 		"jsonls",
-		-- python
-		"pylsp",
 		-- bash
 		"bashls",
 		-- swift
@@ -115,7 +113,6 @@ later(function()
 			css = { "dprint" },
 			vento = { "dprint" },
 			svelte = { "prettierd", "prettier", stop_after_first = true },
-			python = { "black" },
 			bash = { "shfmt" },
 			swift = { "swift" },
 		},
