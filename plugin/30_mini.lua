@@ -505,21 +505,29 @@ end)
 -- - `:h MiniHipatterns-examples` - examples of common setups
 later(function()
 	local hipatterns = require("mini.hipatterns")
-	local hi_words = MiniExtra.gen_highlighter.words
+
+	-- only highlight words if they are immediately succeded by a colon
+	local function hi_words_colon(words, group)
+		local patterns = {}
+		for _, w in ipairs(words) do
+			-- %f[%w] / %f[%W] = word-boundary frontiers (don't consume chars)
+			-- () () = submatch delimiters -> only the word itself gets highlighted,
+			-- the trailing ':' is required but left unhighlighted
+			table.insert(patterns, "%f[%w]()" .. w .. "()%f[%W]:")
+		end
+		return { pattern = patterns, group = group }
+	end
+
 	hipatterns.setup({
 		highlighters = {
-			-- Highlight a fixed set of common words. Will be highlighted in any place,
-			-- not like "only in comments".
-			fixme = hi_words({ "FIXME", "Fixme", "fixme" }, "MiniHipatternsFixme"),
-			hack = hi_words({ "HACK", "Hack", "hack" }, "MiniHipatternsHack"),
-			todo = hi_words({ "TODO", "Todo", "todo" }, "MiniHipatternsTodo"),
-			note = hi_words({ "NOTE", "Note", "note" }, "MiniHipatternsNote"),
+			fixme = hi_words_colon({ "FIXME", "Fixme", "fixme" }, "MiniHipatternsFixme"),
+			hack = hi_words_colon({ "HACK", "Hack", "hack" }, "MiniHipatternsHack"),
+			todo = hi_words_colon({ "TODO", "Todo", "todo" }, "MiniHipatternsTodo"),
+			note = hi_words_colon({ "NOTE", "Note", "note" }, "MiniHipatternsNote"),
 			docs = {
 				pattern = "%-%-.-|()[^|]*()|",
 				group = "MiniHipatternsNote",
 			},
-
-			-- Highlight hex color string (#aabbcc) with that color as a background
 			hex_color = hipatterns.gen_highlighter.hex_color(),
 		},
 	})
