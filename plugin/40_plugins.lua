@@ -141,12 +141,6 @@ later(function()
 	add({ "https://github.com/rafamadriz/friendly-snippets" })
 end)
 
--- Git integration
-later(function()
-	add({ "https://github.com/aspeddro/gitui.nvim" })
-	require("gitui").setup()
-end)
-
 -- Note-taking (Obsidian)
 later(function()
 	add({ "https://github.com/nvim-lua/plenary.nvim" }) -- dependency --
@@ -199,7 +193,15 @@ require("exrc").setup()
 -- Claude Code integration
 later(function()
 	add({ "https://github.com/folke/snacks.nvim" }) -- dependency --
-	require("snacks").setup()
+	require("snacks").setup({
+		win = {
+			backdrop = {
+				bg = Snacks.util.color("Normal", "bg"),
+				blend = 40,
+			},
+		},
+	})
+
 	add({ "https://github.com/coder/claudecode.nvim" })
 	require("claudecode").setup({
 		-- Focus the Claude terminal after a successful send instead of leaving

@@ -36,10 +36,6 @@
       "rev": "6cd7280adead7f586db6fccbd15d2cac7e2188b9",
       "src": "https://github.com/rafamadriz/friendly-snippets"
     },
-    "gitui.nvim": {
-      "rev": "686d74e79899af760ed9f5f0ad2bd1bb1c135e26",
-      "src": "https://github.com/aspeddro/gitui.nvim"
-    },
     "json-nvim": {
       "rev": "beb76a5ffa0a936677695bc82cc868654aad4398",
       "src": "https://github.com/VPavliashvili/json-nvim"

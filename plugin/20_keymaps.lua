@@ -87,7 +87,7 @@ end
 
 nmap_leader('ed', '<Cmd>lua MiniFiles.open()<CR>',          'Directory')
 nmap_leader('ef', explore_at_file,                          'File directory')
-nmap_leader('eg', '<Cmd>Gitui<CR>',                         'Gitui')
+nmap_leader('eg', '<Cmd>lua Snacks.lazygit.open()<CR>',     'Lazygit')
 nmap_leader('eni', '<Cmd>edit $MYVIMRC<CR>',                'init.lua')
 nmap_leader('enk', edit_plugin_file('20_keymaps.lua'),      'Keymaps config')
 nmap_leader('enm', edit_plugin_file('30_mini.lua'),         'MINI config')
