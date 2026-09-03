@@ -109,6 +109,12 @@ later(function()
 			-- Allow formatting from LSP server if no dedicated formatter is available
 			lsp_format = "fallback",
 		},
+		format_on_save = {
+			-- Fall through to the next formatter/LSP instead of blocking the save
+			-- if the configured one takes too long
+			timeout_ms = 500,
+			lsp_format = "fallback",
+		},
 		-- Map of filetype to formatters
 		-- Corresponding CLI tool needs to be installed
 		formatters_by_ft = {
