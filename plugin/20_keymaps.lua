@@ -40,7 +40,6 @@ _G.Config.leader_group_clues = {
   { mode = 'n', keys = '<Leader>e', desc = '+Explore/Edit' },
   { mode = 'n', keys = '<Leader>en',desc = '+Neovim' },
   { mode = 'n', keys = '<Leader>f', desc = '+Find' },
-  { mode = 'n', keys = '<Leader>fo', desc = '+Obsidian' },
   { mode = 'n', keys = '<Leader>g', desc = '+Git' },
   { mode = 'n', keys = '<Leader>l', desc = '+Language' },
   { mode = 'n', keys = '<Leader>m', desc = '+Map' },
@@ -151,6 +150,8 @@ nmap_leader('fl', '<Cmd>Pick buf_lines scope="all"<CR>',       'Lines (all)')
 nmap_leader('fL', '<Cmd>Pick buf_lines scope="current"<CR>',   'Lines (buf)')
 nmap_leader('fm', '<Cmd>Pick git_hunks<CR>',                   'Modified hunks (all)')
 nmap_leader('fM', '<Cmd>Pick git_hunks path="%"<CR>',          'Modified hunks (buf)')
+nmap_leader('fo', '<Cmd>Pick oldfiles current_dir=true<CR>',   'Oldfiles (workspace)')
+nmap_leader('fO', '<Cmd>Pick oldfiles<CR>',                    'Oldfiles (all)')
 nmap_leader('fr', '<Cmd>Pick resume<CR>',                      'Resume')
 nmap_leader('fR', '<Cmd>Pick lsp scope="references"<CR>',      'References (LSP)')
 nmap_leader('fs', '<Cmd>Pick lsp scope="document_symbol"<CR>', 'Symbols document')
@@ -233,9 +234,9 @@ end
 
 -- todo: separate non-picker obsidian related commands
 -- todo: migrate picker to its own file
-nmap_leader('foi', make_pick_tag('project/idea', { new_from_template = true, template = "project.md" }), 'Notes tagged #project')
-nmap_leader('fop', make_pick_tag('project', { new_from_template = true, template = "project.md", omit_subtags = {"done", "idea", "archived"} }), 'Notes tagged #project')
-nmap_leader('fon', '<Cmd>Obsidian new<CR>',    'New note')
+nmap_leader('oi', make_pick_tag('project/idea', { new_from_template = true, template = "project.md" }), 'Notes tagged #project')
+nmap_leader('op', make_pick_tag('project', { new_from_template = true, template = "project.md", omit_subtags = {"done", "idea", "archived"} }), 'Notes tagged #project')
+nmap_leader('on', '<Cmd>Obsidian new<CR>',    'New note')
 
 -- g is for 'Git'. Common usage:
 -- - `<Leader>gs` - show information at cursor
