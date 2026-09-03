@@ -197,6 +197,8 @@ local make_pick_tag = function(tag, opts)
   end
 end
 
+-- todo: separate non-picker obsidian related commands
+-- todo: migrate picker to its own file
 nmap_leader('foi', make_pick_tag('project/idea', { new_from_template = true, template = "project.md" }), 'Notes tagged #project')
 nmap_leader('fop', make_pick_tag('project', { new_from_template = true, template = "project.md", omit_subtags = {"done", "idea", "archived"} }), 'Notes tagged #project')
 nmap_leader('fon', '<Cmd>Obsidian new<CR>',    'New note')
