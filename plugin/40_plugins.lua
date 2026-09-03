@@ -239,6 +239,17 @@ later(function()
 	end, { desc = "Show Claude Code terminal without focusing it" })
 end)
 
+later(function()
+	add({ "https://github.com/akinsho/toggleterm.nvim" })
+	require("toggleterm").setup({
+		open_mapping = [[<c-\>]],
+		autochdir = true,
+		Normal = {
+			guibg = "bg",
+		},
+	})
+end)
+
 -- -- typescript errors
 -- later(function()
 -- 	add({ "https://github.com/dmmulroy/ts-error-translator.nvim" })

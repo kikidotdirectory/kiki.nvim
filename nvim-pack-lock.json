@@ -93,6 +93,10 @@
       "rev": "882c996cf28183f4d63640de0b4c02ec886d01f2",
       "src": "https://github.com/folke/snacks.nvim"
     },
+    "toggleterm.nvim": {
+      "rev": "9a88eae817ef395952e08650b3283726786fb5fb",
+      "src": "https://github.com/akinsho/toggleterm.nvim"
+    },
     "token": {
       "rev": "0576b004dac571ee8bb0d038008efa89b5b3f588",
       "src": "https://github.com/ThorstenRhau/token"
