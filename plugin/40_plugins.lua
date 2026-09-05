@@ -202,6 +202,15 @@ later(function()
 		},
 	})
 
+	-- `backdrop.bg` above is a static color computed at setup time, so it goes
+	-- stale on a light/dark switch; recompute it into the live config on every
+	-- colorscheme change so new backdrop windows pick up the current theme.
+	vim.api.nvim_create_autocmd("ColorScheme", {
+		callback = function()
+			Snacks.config.win.backdrop.bg = Snacks.util.color("Normal", "bg")
+		end,
+	})
+
 	add({ "https://github.com/coder/claudecode.nvim" })
 	require("claudecode").setup({
 		-- Focus the Claude terminal after a successful send instead of leaving
