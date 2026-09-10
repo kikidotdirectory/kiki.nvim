@@ -54,6 +54,20 @@ vim.api.nvim_create_autocmd("BufWritePre", {
 	end,
 })
 
+-- Treat any `docs/` directory as an ephemeral Obsidian workspace.
+-- See 'lua/project_docs.lua'.
+local project_docs = require("project_docs")
+
+vim.api.nvim_create_autocmd("BufEnter", {
+	buffer = 0,
+	callback = function()
+		local docs_root = vim.api.nvim_buf_get_name(0):match("^(.*/docs)/")
+		if docs_root then
+			project_docs.set_docs_workspace(docs_root)
+		end
+	end,
+})
+
 -- disable MiniHipatterns
 vim.b.minihipatterns_disable = true
 vim.b.minipairs_disable = true
