@@ -1,13 +1,5 @@
 {
   "plugins": {
-    "auto-dark-mode.nvim": {
-      "rev": "54058b4fe414bd64bd2904a6f8a63f1f14e3d8df",
-      "src": "https://github.com/f-person/auto-dark-mode.nvim"
-    },
-    "claude-code.nvim": {
-      "rev": "55c0cb59828fbc3bec744288286a46f5d5750b83",
-      "src": "https://github.com/greggh/claude-code.nvim"
-    },
     "claudecode.nvim": {
       "rev": "2390c6e45c4789072c293ac69de051d169668b29",
       "src": "https://github.com/coder/claudecode.nvim"
@@ -15,10 +7,6 @@
     "conform.nvim": {
       "rev": "086a40dc7ed8242c03be9f47fbcee68699cc2395",
       "src": "https://github.com/stevearc/conform.nvim"
-    },
-    "deepwhite.nvim": {
-      "rev": "ccad56bb5eb7d29258980cfc0a716eb87bcad69e",
-      "src": "https://github.com/Verf/deepwhite.nvim"
     },
     "everforest-nvim": {
       "rev": "d235ca0aa6a29546e661a020e2618612acbbffbe",
@@ -28,25 +16,10 @@
       "rev": "4346164895f432f361e453d837b612e6c7cbe3e6",
       "src": "https://github.com/jedrzejboczar/exrc.nvim"
     },
-    "flexoki-nvim": {
-      "rev": "079554c242a86be5d1a95598c7c6368d6eedd7a3",
-      "src": "https://github.com/nuvic/flexoki-nvim"
     },
     "friendly-snippets": {
       "rev": "6cd7280adead7f586db6fccbd15d2cac7e2188b9",
       "src": "https://github.com/rafamadriz/friendly-snippets"
-    },
-    "json-nvim": {
-      "rev": "beb76a5ffa0a936677695bc82cc868654aad4398",
-      "src": "https://github.com/VPavliashvili/json-nvim"
-    },
-    "kanagawa.nvim": {
-      "rev": "aef7f5cec0a40dbe7f3304214850c472e2264b10",
-      "src": "https://github.com/rebelot/kanagawa.nvim"
-    },
-    "markdown-plus.nvim": {
-      "rev": "74d9a854b39dc76d5a29c8954622d16d116fca1e",
-      "src": "https://github.com/yousefhadder/markdown-plus.nvim"
     },
     "mason.nvim": {
       "rev": "2a6940af80375532e5e9e7c1f2fc6319a1b7a69d",
@@ -55,14 +28,6 @@
     "mini.nvim": {
       "rev": "af5f75c9ce572a4d1f0c77d6fb4ea764d16c1b3c",
       "src": "https://github.com/nvim-mini/mini.nvim"
-    },
-    "nord.nvim": {
-      "rev": "80c1e5321505aeb22b7a9f23eb82f1e193c12470",
-      "src": "https://github.com/shaunsingh/nord.nvim"
-    },
-    "nvim-fx": {
-      "rev": "1aed9bf17d563d75af901ab7871aeb9a52c33fac",
-      "src": "https://github.com/davidfmatheson/nvim-fx"
     },
     "nvim-lspconfig": {
       "rev": "16812abf0e8d8175155f26143a8504e8253e92b0",
@@ -92,10 +57,6 @@
     "toggleterm.nvim": {
       "rev": "9a88eae817ef395952e08650b3283726786fb5fb",
       "src": "https://github.com/akinsho/toggleterm.nvim"
-    },
-    "token": {
-      "rev": "0576b004dac571ee8bb0d038008efa89b5b3f588",
-      "src": "https://github.com/ThorstenRhau/token"
     },
     "ts-error-translator.nvim": {
       "rev": "558abff11b9e8f4cefc0de09df780c56841c7a4b",
