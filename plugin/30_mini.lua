@@ -166,7 +166,7 @@ later(function()
 		-- 'mini.ai' can be extended with custom textobjects
 		custom_textobjects = {
 			-- Make `aB` / `iB` act on around/inside whole *b*uffer
-			b = MiniExtra.gen_ai_spec.buffer(),
+			B = MiniExtra.gen_ai_spec.buffer(),
 			-- For more complicated textobjects that require structural awareness,
 			-- use tree-sitter. This example makes `af`/`if` mean around/inside function
 			-- definition (not call). See `:h MiniAi.gen_spec.treesitter()` for details.
@@ -176,7 +176,6 @@ later(function()
 			-- `ac`/`ic` - class, `al`/`il` - loop, `ai`/`ii` - conditional (`if`)
 			c = ai.gen_spec.treesitter({ a = "@class.outer", i = "@class.inner" }),
 			l = ai.gen_spec.treesitter({ a = "@loop.outer", i = "@loop.inner" }),
-			i = ai.gen_spec.treesitter({ a = "@conditional.outer", i = "@conditional.inner" }),
 		},
 
 		-- 'mini.ai' by default mostly mimics built-in search behavior: first try
