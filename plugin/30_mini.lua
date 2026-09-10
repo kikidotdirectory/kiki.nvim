@@ -280,26 +280,28 @@ later(function()
     },
     -- Explicitly opt-in for set of common keys to trigger clue window
     triggers = {
-      { mode = 'n', keys = '<Leader>' }, -- Leader triggers
+      { mode = 'n', keys = '<Leader>' },      -- Leader triggers
       { mode = 'x', keys = '<Leader>' },
-      { mode = 'n', keys = '\\' },       -- mini.basics
-      { mode = 'n', keys = '[' },        -- mini.bracketed
+      { mode = 'n', keys = '<LocalLeader>' }, -- Local leader triggers
+      { mode = 'x', keys = '<LocalLeader>' },
+      { mode = 'n', keys = '\\' },            -- mini.basics
+      { mode = 'n', keys = '[' },             -- mini.bracketed
       { mode = 'n', keys = ']' },
       { mode = 'x', keys = '[' },
       { mode = 'x', keys = ']' },
-      { mode = 'i', keys = '<C-x>' },    -- Built-in completion
-      { mode = 'n', keys = 'g' },        -- `g` key
+      { mode = 'i', keys = '<C-x>' },         -- Built-in completion
+      { mode = 'n', keys = 'g' },             -- `g` key
       { mode = 'x', keys = 'g' },
-      { mode = 'n', keys = "'" },        -- Marks
+      { mode = 'n', keys = "'" },             -- Marks
       { mode = 'n', keys = '`' },
       { mode = 'x', keys = "'" },
       { mode = 'x', keys = '`' },
-      { mode = 'n', keys = '"' },        -- Registers
+      { mode = 'n', keys = '"' },             -- Registers
       { mode = 'x', keys = '"' },
       { mode = 'i', keys = '<C-r>' },
       { mode = 'c', keys = '<C-r>' },
-      { mode = 'n', keys = '<C-w>' },    -- Window commands
-      { mode = 'n', keys = 'z' },        -- `z` key
+      { mode = 'n', keys = '<C-w>' },         -- Window commands
+      { mode = 'n', keys = 'z' },             -- `z` key
       { mode = 'x', keys = 'z' },
     },
   })

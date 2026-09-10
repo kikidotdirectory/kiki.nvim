@@ -17,6 +17,7 @@
 
 -- General ====================================================================
 vim.g.mapleader = ' ' -- Use `<Space>` as <Leader> key
+vim.g.maplocalleader = ','
 
 vim.o.exrc        = true
 vim.o.switchbuf   = 'usetab'       -- Use already opened buffers when switching
