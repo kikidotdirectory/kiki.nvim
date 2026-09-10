@@ -150,7 +150,7 @@ end)
 -- Note-taking (Obsidian)
 later(function()
 	add({ "https://github.com/nvim-lua/plenary.nvim" }) -- dependency --
-	add({ { src = "https://github.com/obsidian-nvim/obsidian.nvim", version = "v3.16.6" } })
+	add({ { src = "https://github.com/obsidian-nvim/obsidian.nvim", version = "v3.16.7" } })
 	require("obsidian").setup({
 		legacy_commands = false,
 		note_id_func = require("obsidian.builtin").title_id,
@@ -159,9 +159,7 @@ later(function()
 			separator = false,
 		},
 		checkbox = {
-			enabled = true,
-			create_new = true,
-			order = { " ", "~", "x" },
+			enabled = false,
 		},
 		workspaces = {
 			{
@@ -174,6 +172,23 @@ later(function()
 		},
 		picker = {
 			name = "mini.pick",
+		},
+		callbacks = {
+			enter_note = function(note)
+				local actions = require("obsidian.actions")
+				vim.keymap.set(
+					"n",
+					"<leader>;",
+					actions.add_property,
+					{ buffer = true, desc = "Add frontmatter property" }
+				)
+				vim.keymap.set("n", "<Tab>", function()
+					actions.nav_link("next")
+				end, { buffer = true, desc = "Go to next link" })
+				vim.keymap.set("n", "<S-Tab>", function()
+					actions.nav_link("prev")
+				end, { buffer = true, desc = "Go to previous link" })
+			end,
 		},
 	})
 
