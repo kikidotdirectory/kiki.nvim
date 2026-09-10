@@ -16,6 +16,9 @@
       "rev": "4346164895f432f361e453d837b612e6c7cbe3e6",
       "src": "https://github.com/jedrzejboczar/exrc.nvim"
     },
+    "filepaths_ls.nvim": {
+      "rev": "5442154660c9d5003f7323b2d4b8c4711e0d2c52",
+      "src": "https://github.com/kikidotdirectory/filepaths_ls.nvim"
     },
     "friendly-snippets": {
       "rev": "a5a73e586521fe5c12d751ad81a0db67649a94ed",

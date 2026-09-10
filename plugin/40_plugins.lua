@@ -64,10 +64,16 @@ now_if_args(function()
 	_G.Config.new_autocmd("FileType", filetypes, ts_start, "Start tree-sitter")
 end)
 
--- Language servers --
+-- Language servers
+now_if_args(function()
+	add({ "https://github.com/kikidotdirectory/filepaths_ls.nvim" })
+end)
+
 now_if_args(function()
 	add({ "https://github.com/neovim/nvim-lspconfig" })
 	vim.lsp.enable({
+		-- file-path completion
+		"filepaths_ls",
 		--lua
 		"lua_ls",
 		-- ts/js
