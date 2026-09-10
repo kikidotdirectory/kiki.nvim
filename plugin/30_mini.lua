@@ -391,13 +391,6 @@ later(function()
 	vim.lsp.config("*", { capabilities = MiniCompletion.get_lsp_capabilities() })
 end)
 
--- Autohighlight word under cursor with a customizable delay.
--- Word boundaries are defined based on `:h 'iskeyword'` option.
---
--- It is not enabled by default because its effects are a matter of taste.
--- Uncomment next line (use `gcc`) to enable.
--- later(function() require('mini.cursorword').setup() end)
-
 -- Work with diff hunks that represent the difference between the buffer text and
 -- some reference text set by a source. Default source uses text from Git index.
 -- Also provides summary info used in developer section of 'mini.statusline'.
@@ -471,6 +464,7 @@ now_if_args(function()
 	end
 	_G.Config.new_autocmd("User", "MiniFilesExplorerOpen", add_marks, "Add bookmarks")
 
+	-- create hjkl mappings alongside arrow key mappings
 	_G.Config.new_autocmd("User", "MiniFilesBufferCreate", function(args)
 		local buf = args.data.buf_id
 		vim.keymap.set("n", "l", "<Right>", { buffer = buf, remap = true })

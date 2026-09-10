@@ -177,6 +177,8 @@ later(function()
 		},
 	})
 
+	-- enable command completion for mini.cmdline.
+	-- https://github.com/obsidian-nvim/obsidian.nvim/wiki/Commands#completion-for-sub-commands
 	vim.api.nvim_create_autocmd("CmdlineChanged", {
 		callback = function()
 			local cmdline = vim.fn.getcmdline()
