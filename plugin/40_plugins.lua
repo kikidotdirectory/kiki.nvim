@@ -191,6 +191,9 @@ later(function()
 		picker = {
 			name = "mini.pick",
 		},
+		ui = {
+			enable = false,
+		},
 		callbacks = {
 			enter_note = function(note)
 				local actions = require("obsidian.actions")
