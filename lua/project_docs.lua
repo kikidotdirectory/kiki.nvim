@@ -18,8 +18,19 @@ local M = {}
 -- keeps bailing out early for every file under it and none of its mappings
 -- fire.
 ---@param docs_root string
-function M.set_docs_workspace(docs_root)
-	local workspace = require("obsidian.workspace")
+
+function M.set_docs_workspace(docs_root, attempts)
+	local attempts_left = attempts or 20
+
+	local ok, workspace = pcall(require, "obsidian.workspace")
+	if not ok then
+		if attempts_left > 0 then
+			vim.defer_fn(function()
+				M.set_docs_workspace(docs_root, attempts_left - 1)
+			end, 250)
+		end
+		return
+	end
 
 	local spec = {
 		name = "docs",
