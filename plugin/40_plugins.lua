@@ -210,7 +210,11 @@ end)
 
 now_if_args(function()
 	add({ "https://github.com/YousefHadder/markdown-plus.nvim" })
-	require("markdown-plus").setup({})
+	require("markdown-plus").setup({
+		list = {
+			whitespace_width = 2,
+		},
+	})
 end)
 
 -- exrc (Per-project configuration)
