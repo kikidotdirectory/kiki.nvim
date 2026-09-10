@@ -24,6 +24,10 @@
       "rev": "a5a73e586521fe5c12d751ad81a0db67649a94ed",
       "src": "https://github.com/rafamadriz/friendly-snippets"
     },
+    "markdown-plus.nvim": {
+      "rev": "1d98f6d633b0bcdb5c55aedd705fcd6b67cc0ed8",
+      "src": "https://github.com/YousefHadder/markdown-plus.nvim"
+    },
     "mason.nvim": {
       "rev": "2a6940af80375532e5e9e7c1f2fc6319a1b7a69d",
       "src": "https://github.com/mason-org/mason.nvim"

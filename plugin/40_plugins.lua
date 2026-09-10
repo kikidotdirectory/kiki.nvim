@@ -208,6 +208,11 @@ later(function()
 	})
 end)
 
+now_if_args(function()
+	add({ "https://github.com/YousefHadder/markdown-plus.nvim" })
+	require("markdown-plus").setup({})
+end)
+
 -- exrc (Per-project configuration)
 -- Loads project-local config files (e.g. .nvim.lua) when trusted
 add({ "https://github.com/jedrzejboczar/exrc.nvim" })
