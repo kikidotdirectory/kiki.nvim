@@ -1,22 +1,11 @@
--- ┌─────────────────────────┐
--- │ Filetype config example │
--- └─────────────────────────┘
---
--- This is an example of a configuration that will apply only to a particular
--- filetype, which is the same as file's basename ('markdown' in this example;
--- which is for '*.md' files).
---
--- It can contain any code which will be usually executed when the file is opened
--- (strictly speaking, on every 'filetype' option value change to target value).
--- Usually it needs to define buffer/window local options and variables.
--- So instead of `vim.o` to set options, use `vim.bo` for buffer-local options and
--- `vim.cmd('setlocal ...')` for window-local options (currently more robust).
---
--- This is also a good place to set buffer-local 'mini.nvim' variables.
--- See `:h mini.nvim-buffer-local-config` and `:h mini.nvim-disabling-recipes`.
-
--- Enable spelling and wrap for window
+-- Enable wrap for window
 vim.cmd("setlocal wrap")
+
+-- disable MiniHipatterns
+vim.b.minihipatterns_disable = true
+
+-- disable MiniPairs, handled by obsidian
+vim.b.minipairs_disable = true
 
 -- Fold with tree-sitter
 vim.cmd("setlocal foldmethod=expr foldexpr=v:lua.vim.treesitter.foldexpr()")
@@ -24,11 +13,20 @@ vim.cmd("setlocal foldmethod=expr foldexpr=v:lua.vim.treesitter.foldexpr()")
 -- Disable built-in `gO` mapping in favor of 'mini.basics'
 vim.keymap.del("n", "gO", { buffer = 0 })
 
+-- Conceal markdown syntax for readability
 vim.opt.conceallevel = 2
 
 -- Navigate through visual lines in .md files
 vim.keymap.set("n", "<Down>", "gj", { buffer = true })
 vim.keymap.set("n", "<Up>", "gk", { buffer = true })
+
+-- Trim whitespace on save in lieu of proper formatter
+vim.api.nvim_create_autocmd("BufWritePre", {
+	pattern = "*",
+	callback = function()
+		MiniTrailspace.trim()
+	end,
+})
 
 -- Set markdown-specific surrounding in 'mini.surround'
 vim.b.minisurround_config = {
@@ -47,13 +45,6 @@ vim.b.minisurround_config = {
 	},
 }
 
-vim.api.nvim_create_autocmd("BufWritePre", {
-	pattern = "*",
-	callback = function()
-		MiniTrailspace.trim()
-	end,
-})
-
 -- Treat any `docs/` directory as an ephemeral Obsidian workspace.
 -- See 'lua/project_docs.lua'.
 local project_docs = require("project_docs")
@@ -67,7 +58,3 @@ vim.api.nvim_create_autocmd("BufEnter", {
 		end
 	end,
 })
-
--- disable MiniHipatterns
-vim.b.minihipatterns_disable = true
-vim.b.minipairs_disable = true
