@@ -142,9 +142,27 @@ end)
 
 -- Functional ------------------------------------------------------------------
 
+-- Aesthetic -------------------------------------------------------------------
+-- Colorscheme
+add({ "https://github.com/neanias/everforest-nvim" })
+
+vim.cmd("colorscheme everforest")
+
 -- Snippets
 later(function()
 	add({ "https://github.com/rafamadriz/friendly-snippets" })
+end)
+
+now_if_args(function()
+	add({ "https://github.com/folke/snacks.nvim" }) -- dependency --
+	require("snacks").setup({
+		win = {
+			backdrop = {
+				bg = Snacks.util.color("Normal", "bg"),
+				blend = 40,
+			},
+		},
+	})
 end)
 
 -- Note-taking (Obsidian)
@@ -217,6 +235,10 @@ now_if_args(function()
 	})
 end)
 
+later(function()
+	add({ "file://" .. vim.fn.expand("~/Projects/md-render.nvim") })
+end)
+
 -- exrc (Per-project configuration)
 -- Loads project-local config files (e.g. .nvim.lua) when trusted
 add({ "https://github.com/jedrzejboczar/exrc.nvim" })
@@ -224,16 +246,6 @@ require("exrc").setup()
 
 -- Claude Code integration
 later(function()
-	add({ "https://github.com/folke/snacks.nvim" }) -- dependency --
-	require("snacks").setup({
-		win = {
-			backdrop = {
-				bg = Snacks.util.color("Normal", "bg"),
-				blend = 40,
-			},
-		},
-	})
-
 	-- `backdrop.bg` above is a static color computed at setup time, so it goes
 	-- stale on a light/dark switch; recompute it into the live config on every
 	-- colorscheme change so new backdrop windows pick up the current theme.
@@ -298,8 +310,3 @@ end)
 -- 	add({ "https://github.com/dmmulroy/ts-error-translator.nvim" })
 -- 	require("ts-error-translator").setup()
 -- end)
-
--- Aesthetic -------------------------------------------------------------------
--- Colorscheme
-add({ "https://github.com/neanias/everforest-nvim" })
-vim.cmd("colorscheme everforest")

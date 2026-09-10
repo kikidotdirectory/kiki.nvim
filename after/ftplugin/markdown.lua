@@ -58,3 +58,7 @@ vim.api.nvim_create_autocmd("BufEnter", {
 		end
 	end,
 })
+
+vim.keymap.set("n", "<localleader>p", "<Plug>(md-render-preview)", { desc = "Markdown preview (toggle)" })
+vim.keymap.set("n", "<localleader>P", "<CMD>vert MdRender split<CR>", { desc = "Markdown preview in split" })
+
