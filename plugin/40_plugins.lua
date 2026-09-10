@@ -230,6 +230,7 @@ now_if_args(function()
 	add({ "https://github.com/YousefHadder/markdown-plus.nvim" })
 	require("markdown-plus").setup({
 		list = {
+			whitespace = "shiftwidth",
 			whitespace_width = 2,
 		},
 	})
