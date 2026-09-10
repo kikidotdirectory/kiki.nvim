@@ -98,6 +98,9 @@ nmap_leader('eq', explore_quickfix,                         'Quickfix')
 -- f is for 'Fuzzy Find'. Common usage:
 local pick_added_hunks_buf = '<Cmd>Pick git_hunks path="%" scope="staged"<CR>'
 local pick_workspace_symbols_live = '<Cmd>Pick lsp scope="workspace_symbol_live"<CR>'
+local function pick_workspace_docs()
+  require('mini.pick').builtin.files({}, { source = { cwd = 'docs' } })
+end
 local pick_workspace_todos = require("workspace_todos").pick_workspace_todos
 
 nmap_leader('f/', '<Cmd>Pick history scope="/"<CR>',           '"/" history')
@@ -127,6 +130,7 @@ nmap_leader('fS', pick_workspace_symbols_live,                 'Symbols workspac
 nmap_leader('ft', pick_workspace_todos,                        'Todos workspace')
 nmap_leader('fv', '<Cmd>Pick visit_paths cwd=""<CR>',          'Visit paths (all)')
 nmap_leader('fV', '<Cmd>Pick visit_paths<CR>',                 'Visit paths (cwd)')
+nmap_leader('fx', pick_workspace_docs,                         'Visit docs (cwd)')
 
 -- Notes-by-tag pickers for Obsidian, implemented in 'lua/obsidian_pickers.lua'.
 -- Add a new tag with one line:
