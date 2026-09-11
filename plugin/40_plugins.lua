@@ -297,18 +297,6 @@ now_if_args(function()
 	})
 end)
 
--- later(function()
--- 	add({ "file://" .. vim.fn.expand("~/Projects/md-render.nvim") })
--- 	require("md-render.image")
---
--- 	vim.api.nvim_set_hl(0, "MdRenderInlineCode", { fg = vim.api.nvim_get_hl(0, { name = "String" }).fg })
--- 	vim.api.nvim_create_autocmd("ColorScheme", {
--- 		callback = function()
--- 			vim.api.nvim_set_hl(0, "MdRenderInlineCode", { fg = vim.api.nvim_get_hl(0, { name = "String" }).fg })
--- 		end,
--- 	})
--- end)
-
 -- exrc (Per-project configuration)
 -- Loads project-local config files (e.g. .nvim.lua) when trusted
 add({ "https://github.com/jedrzejboczar/exrc.nvim" })
