@@ -17,7 +17,7 @@
 
 -- General ====================================================================
 vim.g.mapleader = ' ' -- Use `<Space>` as <Leader> key
-vim.g.maplocalleader = ','
+vim.g.maplocalleader = '-'
 -- Built-in markdown ftplugin (`:h ft-markdown-plugin`) forces `shiftwidth=4`
 -- etc. unless this is off; disable so the global `shiftwidth` below wins.
 vim.g.markdown_recommended_style = 0
