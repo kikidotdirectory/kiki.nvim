@@ -59,6 +59,42 @@ vim.api.nvim_create_autocmd("BufEnter", {
 	end,
 })
 
-vim.keymap.set("n", "<localleader>p", "<Plug>(md-render-preview)", { desc = "Markdown preview (toggle)" })
-vim.keymap.set("n", "<localleader>P", "<CMD>vert MdRender split<CR>", { desc = "Markdown preview in split" })
+vim.keymap.set("n", "<localleader>i", function()
+	Snacks.image.doc.hover()
+end, { buffer = true, desc = "Show image at cursor" })
 
+vim.keymap.set("n", "<Esc>", function()
+	Snacks.image.doc.hover_close()
+	vim.cmd("nohlsearch")
+end, { buffer = true, desc = "Close image hover / clear search highlight" })
+
+-- markdown-plus keymaps to be layered on top of keymaps defined in plugin/40_plugins.lua
+local function in_list_context(kind)
+	return function()
+		return require("markdown-plus").in_list_context(kind)
+	end
+end
+
+local markdown_plus_indent = {
+	condition = in_list_context("indent"),
+	action = function()
+		return "<Plug>(MarkdownPlusListIndent)"
+	end,
+}
+local markdown_plus_outdent = {
+	condition = in_list_context("outindent"),
+	action = function()
+		return "<Plug>(MarkdownPlusListOutdent)"
+	end,
+}
+local markdown_plus_enter = {
+	condition = in_list_context("enter"),
+	action = function()
+		return "<Plug>(MarkdownPlusListEnter)"
+	end,
+}
+
+local MiniKeymap = require("mini.keymap")
+MiniKeymap.map_multistep("i", "<Tab>", { "pmenu_next", markdown_plus_indent }, { buffer = true })
+MiniKeymap.map_multistep("i", "<S-Tab>", { "pmenu_prev", markdown_plus_outdent }, { buffer = true })
+MiniKeymap.map_multistep("i", "<CR>", { "pmenu_accept", markdown_plus_enter, "minipairs_cr" }, { buffer = true })

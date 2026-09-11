@@ -33,7 +33,7 @@
       "src": "https://github.com/mason-org/mason.nvim"
     },
     "md-render.nvim": {
-      "rev": "9393bc4c113e02bad36103683ea3b73da8fe161f",
+      "rev": "1dd1bb7f8721912574aeeccecce762aaebbccc39",
       "src": "file:///Users/kiki/Projects/md-render.nvim"
     },
     "mini.nvim": {

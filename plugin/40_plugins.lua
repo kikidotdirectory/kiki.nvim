@@ -30,6 +30,7 @@ now_if_args(function()
 		"lua",
 		"vimdoc",
 		"markdown",
+		-- "mermaid",
 		"javascript",
 		"typescript",
 		"html",
@@ -153,9 +154,53 @@ later(function()
 	add({ "https://github.com/rafamadriz/friendly-snippets" })
 end)
 
+-- Builds mermaid themeVariables from the current colorscheme, for the
+-- frontmatter injection below.
+local function get_cur_theme()
+	local hl = vim.api.nvim_get_hl(0, { name = "NormalFloat", link = false })
+	local bg_hex = hl.bg and string.format("#%06x", hl.bg) or "#1e1e2e"
+	local fg_hex = hl.fg and string.format("#%06x", hl.fg) or "#cdd6f4"
+	return {
+		primaryColor = bg_hex,
+		primaryTextColor = fg_hex,
+		primaryBorderColor = fg_hex,
+		lineColor = fg_hex,
+		fontFamily = "CommitMono",
+	}
+end
+
 now_if_args(function()
 	add({ "https://github.com/folke/snacks.nvim" }) -- dependency --
 	require("snacks").setup({
+		image = {
+			enabled = true,
+			doc = {
+				inline = false,
+				float = false, -- toggled with keybind @after/ftplugin/markdown.lua
+				conceal = function(lang, type)
+					return type == "math" or type == "chart" or lang == "mermaid"
+				end,
+			},
+			convert = {
+				mermaid = function()
+					local theme = vim.o.background == "light" and "neutral" or "dark"
+					return {
+						"-i",
+						"{src}",
+						"-o",
+						"{file}",
+						"-b",
+						"transparent",
+						"-t",
+						theme,
+						"-s",
+						"{scale}",
+						"-c",
+						vim.fn.expand("~/dotfiles/config/mermaid/config.json"),
+					}
+				end,
+			},
+		},
 		win = {
 			backdrop = {
 				bg = Snacks.util.color("Normal", "bg"),
@@ -163,6 +208,19 @@ now_if_args(function()
 			},
 		},
 	})
+
+	-- Prepend mermaid frontmatter with colorscheme-derived themeVariables
+	require("snacks.image.doc").transforms.mermaid = function(img, _ctx)
+		if not img.content then
+			return
+		end
+		local lines = { "---", "config:", "  theme: base", "  themeVariables:" }
+		for k, v in vim.spairs(get_cur_theme()) do
+			table.insert(lines, ("    %s: %q"):format(k, v))
+		end
+		table.insert(lines, "---")
+		img.content = table.concat(lines, "\n") .. "\n" .. img.content
+	end
 end)
 
 -- Note-taking (Obsidian)
@@ -239,9 +297,17 @@ now_if_args(function()
 	})
 end)
 
-later(function()
-	add({ "file://" .. vim.fn.expand("~/Projects/md-render.nvim") })
-end)
+-- later(function()
+-- 	add({ "file://" .. vim.fn.expand("~/Projects/md-render.nvim") })
+-- 	require("md-render.image")
+--
+-- 	vim.api.nvim_set_hl(0, "MdRenderInlineCode", { fg = vim.api.nvim_get_hl(0, { name = "String" }).fg })
+-- 	vim.api.nvim_create_autocmd("ColorScheme", {
+-- 		callback = function()
+-- 			vim.api.nvim_set_hl(0, "MdRenderInlineCode", { fg = vim.api.nvim_get_hl(0, { name = "String" }).fg })
+-- 		end,
+-- 	})
+-- end)
 
 -- exrc (Per-project configuration)
 -- Loads project-local config files (e.g. .nvim.lua) when trusted
